@@ -92,9 +92,6 @@
         Excelente ubicación.
         
         Departamento amplio.\r\nVista al mar.\r\nExcelente ubicación.
-        
-        
-        
         */
         if(!$titulo) {
             $errores[] = "Debes añadir un título";
@@ -123,7 +120,7 @@
         echo "</pre>";
 
         /* validacion imagen */
-        $types_image_allowed = ['image/jpg', 'image/jpeg','image/png'];
+        $types_image_allowed = ['image/jpg', 'image/jpeg','image/png', 'image/webp'];
         $type_allowed = false;
         if(!$imagen["name"] || $imagen["error"]) 
             $errores[] = "La imagen es obligatoria";
@@ -143,9 +140,6 @@
             }
         }   
 
-        
-
-
         if(empty($errores)) {
 
             // subida de imagenes al servidor
@@ -153,10 +147,9 @@
             // crear carpeta
             $carpeta_imagenes = "../../imagenes/";
             if(!is_dir($carpeta_imagenes)) // is_dir('path/nombre_carpeta') -> funcion php que nos indica si existe o no la carpeta especificada dentro del proyecto
-                mkdir($carpeta_imagenes); // mkdir() -> funcion php para crear una carpeta dentro del proyecto, donde le especifiquemos
+                mkdir($carpeta_imagenes); // mkdir() -> funcion php para crear una carpeta dentro del proyecto, donde le especifiquemos (en este caso, creamos la carpeta imagenes en la raiz, por eso nos movemos 2 instancias para atras)
             
             // generar un nombre unico para las imagenes 
-            
             $extension_image = substr($imagen["type"], 6);
             $numero_10_digitos_aleatorio = rand(); // funcion php que por default genera un numero aleatorio de 10 digitos, pero podemos pasarle minimo y maximo como argumentos 
             $nombre_imagen = md5( uniqid( $numero_10_digitos_aleatorio, true ) ) . "." . $extension_image; // generamos un nombre aleatorio para cada imagen que subamos al servidor
@@ -168,8 +161,8 @@
             // como 2do parametro le pasamos el path definitivo dentro del proyecto incluyendo el nombre que le daremos a la imagen en el servidor
 
             // insertar en la base de datos 
-            $query= "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) VALUES ";
-            $query = $query . "('$titulo','$precio', '$nombre_imagen', '$descripcion','$habitaciones','$wc','$estacionamientos', '$creado', '$vendedores_id')";
+            $query= "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id, modificado) VALUES ";
+            $query = $query . "('$titulo','$precio', '$nombre_imagen', '$descripcion','$habitaciones','$wc','$estacionamientos', '$creado', '$vendedores_id', '$creado')";
 
             $resultado = mysqli_query($db, $query); 
             // le paso la instancia de la conexion y la query
@@ -178,7 +171,7 @@
             if($resultado){
                 // redireccionar al usuario luego de creado el registro 
                 // esta funcion sirve para enviar datos en el encabezado de una peticion HTTP
-                header("Location: /bienesraices/admin");
+                header("Location: /bienesraices/admin?result=1");
             }
         }
     }
