@@ -115,10 +115,6 @@
             $errores[] = "Elige un vendedor";
         } 
 
-        echo "<pre>";
-        print_r($imagen);
-        echo "</pre>";
-
         /* validacion imagen */
         $types_image_allowed = ['image/jpg', 'image/jpeg','image/png', 'image/webp'];
         $type_allowed = false;

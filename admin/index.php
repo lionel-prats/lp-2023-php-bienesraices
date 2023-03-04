@@ -24,9 +24,9 @@
 
         <!-- mensaje de exito al crear una nueva propiedad correctamente -->
         <?php if(intval($result) === 1): // intval() devuelve el valor integer de una variable ?>  
-            <p class="alerta exito">Anuncio creado correctamente</p> 
+            <p class="alerta exito">Anuncio Creado Correctamente</p> 
         <?php elseif(intval($result) === 2): ?>  
-            <p class="alerta exito">Anuncio editado correctamente</p> 
+            <p class="alerta exito">Anuncio Actualizado Correctamente</p> 
         <?php endif; ?>
         
         <a href="/bienesraices/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>

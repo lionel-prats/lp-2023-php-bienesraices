@@ -41,11 +41,15 @@
     
     
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-        echo "<pre>";
+        /* echo "<pre>";
         print_r($_POST);
-        echo "</pre>";
+        echo "</pre>"; */
 
         $imagen = $_FILES["imagen"];
+        /* echo "<pre>";
+        print_r($imagen);
+        echo "</pre>"; */
+        /* exit; */
 
         // con la funcion mysqli_real_escape_string() evitamos la inyeccion SQL
         $titulo = mysqli_real_escape_string($db, $_POST["titulo"]);
@@ -79,13 +83,13 @@
             $errores[] = "Elige un vendedor";
         } 
 
-        /*
+        
         // validacion imagen
         $types_image_allowed = ['image/jpg', 'image/jpeg','image/png', 'image/webp'];
         $type_allowed = false;
-        if(!$imagen["name"] || $imagen["error"]) 
-            $errores[] = "La imagen es obligatoria";
-        else {
+        
+        // validacion de imagen, si es que el usuario cargo 1 nueva
+        if($imagen["name"]){
             foreach($types_image_allowed as $type){
                 if($imagen["type"] == $type) {
                     $type_allowed = true;
@@ -99,37 +103,35 @@
                 if($imagen["size"] > $peso_maximo_imagen)
                     $errores[] = "La imagen es muy pesada"; 
             }
-        }   
+        }
         // fin validacion imagen
-        */
+       
 
         if(empty($errores)) {
-
-
-            /*
-
-            // subida de imagenes al servidor
-
-            // crear carpeta
-            $carpeta_imagenes = "../../imagenes/";
-            if(!is_dir($carpeta_imagenes)) // is_dir('path/nombre_carpeta') -> funcion php que nos indica si existe o no la carpeta especificada dentro del proyecto
-                mkdir($carpeta_imagenes); // mkdir() -> funcion php para crear una carpeta dentro del proyecto, donde le especifiquemos (en este caso, creamos la carpeta imagenes en la raiz, por eso nos movemos 2 instancias para atras)
             
-            // generar un nombre unico para las imagenes 
-            $extension_image = substr($imagen["type"], 6);
-            $numero_10_digitos_aleatorio = rand(); // funcion php que por default genera un numero aleatorio de 10 digitos, pero podemos pasarle minimo y maximo como argumentos 
-            $nombre_imagen = md5( uniqid( $numero_10_digitos_aleatorio, true ) ) . "." . $extension_image; // generamos un nombre aleatorio para cada imagen que subamos al servidor
+            $nombre_imagen = $property_image;
 
-            // subir imagen
-            move_uploaded_file($imagen["tmp_name"], $carpeta_imagenes . $nombre_imagen); 
-            // move_uploaded_file() -> funcion php para guardar un archivo en el servidor 
-            // como 1er parametro le pasamos la ubicacion temporal en la que esta almacenada la imagen (viene en el superglobal $_FILES)
-            // como 2do parametro le pasamos el path definitivo dentro del proyecto incluyendo el nombre que le daremos a la imagen en el servidor
+            // borrado de imagen anterior y subida al server de imagen nueva, si el usuario cargo una nueva imagen para la propiedad            
+            if($imagen["name"]){
+                $carpeta_imagenes = "../../imagenes/";
+                unlink( $carpeta_imagenes . $property_image ); // funcion php para eliminar archivos del servidor
 
-            */
+                // generar un nombre unico para las imagenes 
+                $extension_image = substr($imagen["type"], 6);
+                $numero_10_digitos_aleatorio = rand(); // ver descripcion en crear.php
+                $nombre_imagen = md5( uniqid( $numero_10_digitos_aleatorio, true ) ) . "." . $extension_image; // ver descripcion en crear.php
+
+                // subir imagen
+                move_uploaded_file($imagen["tmp_name"], $carpeta_imagenes . $nombre_imagen); // ver descripcion en crear.php
+            }
+
+
+           
+
+           
             
             // update en la DB
-            $query = "UPDATE propiedades SET titulo = '$titulo', precio = $precio, descripcion = '$descripcion', habitaciones = $habitaciones, wc = $wc, estacionamiento = $estacionamientos, vendedores_id = $vendedores_id, modificado = '$modificado' WHERE id = $id_propiedad";
+            $query = "UPDATE propiedades SET titulo = '$titulo', precio = $precio, imagen = '$nombre_imagen' ,descripcion = '$descripcion', habitaciones = $habitaciones, wc = $wc, estacionamiento = $estacionamientos, vendedores_id = $vendedores_id, modificado = '$modificado' WHERE id = $id_propiedad";
 
             // echo $query; 
     
