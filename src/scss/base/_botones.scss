@@ -16,3 +16,6 @@
 .boton-verde-block {
     @include boton($verde, block);
 }
+.lh-default {
+    line-height: 1.8;
+}

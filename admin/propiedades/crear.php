@@ -140,6 +140,12 @@
 
             // subida de imagenes al servidor
 
+            
+            // BLOQUE PARA SUBIR IMAGENES AL SERVER (DESDE EL VIDEO 319)
+            // ESTO ES LO QUE EXPLICA EL PROFESOR
+            // GUARDAR LAS IMAGENES EN UNA CARPETA imagenes Y RENDERIZARLAS EN LAS DISTINTAS VISTAS DESDE AHI
+            // YO ELEGI UNA FORMA ALTERNATIVA PARA HACER USO DE LAS OPTIMIZACIONES CONFIGURADAS EN EL .gulpfile.js
+            
             // crear carpeta
             $carpeta_imagenes = "../../imagenes/";
             if(!is_dir($carpeta_imagenes)) // is_dir('path/nombre_carpeta') -> funcion php que nos indica si existe o no la carpeta especificada dentro del proyecto
@@ -153,12 +159,24 @@
             // subir imagen
             move_uploaded_file($imagen["tmp_name"], $carpeta_imagenes . $nombre_imagen); 
             // move_uploaded_file() -> funcion php para guardar un archivo en el servidor 
-            // como 1er parametro le pasamos la ubicacion temporal en la que esta almacenada la imagen (viene en el superglobal $_FILES)
-            // como 2do parametro le pasamos el path definitivo dentro del proyecto incluyendo el nombre que le daremos a la imagen en el servidor
+            // como 1er parametro le pasamos la ubicacion temporal en la que esta almacenada la imagen (viene en el superglobal $_FILES, cuando un usuario selecciona un archivo en un <input type="file">)
+            // como 2do parametro le pasamos el path definitivo dentro del proyecto, incluyendo el nombre que le daremos a la imagen en el servidor (en nuestro caso, almacenado en $nombre_imagen)
+
+            // FIN DEL BLOQUE PARA SUBIR IMAGENES AL SERVER (DESDE EL VIDEO 319)
+           
+
+            /* $final_location_image = "../../src/img/";
+            $extension_image = substr($imagen["type"], 6);
+            $numero_10_digitos_aleatorio = rand();
+            $final_name_image = md5( uniqid( $numero_10_digitos_aleatorio, true ) ) . "." . $extension_image;
+            move_uploaded_file($imagen["tmp_name"], $final_location_image . $final_name_image); */
 
             // insertar en la base de datos 
             $query= "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id, modificado) VALUES ";
+            
             $query = $query . "('$titulo','$precio', '$nombre_imagen', '$descripcion','$habitaciones','$wc','$estacionamientos', '$creado', '$vendedores_id', '$creado')";
+           
+            /* $query = $query . "('$titulo','$precio', '$final_name_image', '$descripcion','$habitaciones','$wc','$estacionamientos', '$creado', '$vendedores_id', '$creado')"; */
 
             $resultado = mysqli_query($db, $query); 
             // le paso la instancia de la conexion y la query

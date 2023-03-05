@@ -41,15 +41,8 @@
     
     
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-        /* echo "<pre>";
-        print_r($_POST);
-        echo "</pre>"; */
 
         $imagen = $_FILES["imagen"];
-        /* echo "<pre>";
-        print_r($imagen);
-        echo "</pre>"; */
-        /* exit; */
 
         // con la funcion mysqli_real_escape_string() evitamos la inyeccion SQL
         $titulo = mysqli_real_escape_string($db, $_POST["titulo"]);
@@ -114,7 +107,9 @@
             // borrado de imagen anterior y subida al server de imagen nueva, si el usuario cargo una nueva imagen para la propiedad            
             if($imagen["name"]){
                 $carpeta_imagenes = "../../imagenes/";
-                unlink( $carpeta_imagenes . $property_image ); // funcion php para eliminar archivos del servidor
+                unlink( $carpeta_imagenes . $property_image ); 
+                // funcion php para eliminar archivos que esten dentro del servidor
+                // le pasamos el path relativo del archivo que queremos eliminar (../../imagenes/ae55166e7c9db8ed239ad5910bbba41c.jpeg)
 
                 // generar un nombre unico para las imagenes 
                 $extension_image = substr($imagen["type"], 6);
@@ -125,11 +120,6 @@
                 move_uploaded_file($imagen["tmp_name"], $carpeta_imagenes . $nombre_imagen); // ver descripcion en crear.php
             }
 
-
-           
-
-           
-            
             // update en la DB
             $query = "UPDATE propiedades SET titulo = '$titulo', precio = $precio, imagen = '$nombre_imagen' ,descripcion = '$descripcion', habitaciones = $habitaciones, wc = $wc, estacionamiento = $estacionamientos, vendedores_id = $vendedores_id, modificado = '$modificado' WHERE id = $id_propiedad";
 

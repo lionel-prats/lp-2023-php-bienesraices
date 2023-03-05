@@ -1,35 +1,53 @@
 <?php
+    // __DIR__ === C:\xampp\htdocs\bienesraices
+
+    $id_property = $_GET["id"];
+    $id_property =  filter_var($id_property, FILTER_VALIDATE_INT); 
+    if(!$id_property)
+        header("Location: /bienesraices/error.php");
+        
+    require __DIR__ . "/includes/config/database.php";
+    $db = conectarDB();
+    $query = "SELECT * FROM propiedades WHERE id = $id_property"; 
+    $result_query = mysqli_query($db, $query);
+    
+    // si la cosulta viene vacia (si no se ecncontraron registros), redirecciono
+    if(!$result_query->num_rows)
+        header("Location: /bienesraices/error.php");
+
+    $property_information = mysqli_fetch_assoc($result_query); 
+
     require "includes/funciones.php";
     incluirTemplate("header");
 ?>
-
     <main class="contenedor seccion contenido-centrado">
-    <!-- .contenido-centrado está en _utilidades.scss  -->
-        <h1>Casa en Venta frente al bosque</h1>
-        <picture>
+        <h1><?php echo $property_information["titulo"]; ?></h1>
+        <!-- <picture>
             <source srcset="build/img/destacada.webp" type="image/webp">
             <source srcset="build/img/destacada.jpg" type="image/jpeg">
-            <img loading="lazy" src="build/img/destacada.jpg" alt="imagen de la propiedad">
-        </picture>
+        </picture> -->
+        <img loading="lazy" src="imagenes/<?php echo $property_information["imagen"]; ?>" alt="imagen de la propiedad">
         <div class="resumen-propiedad">
-            <p class="precio">$3,000,000</p>
+            <p class="precio">USD <?php echo number_format($property_information["precio"], 0, ",", ".")?></p>
             <ul class="iconos-caracteristicas">
                 <li>
+                    <img class="icono" src="build/img/icono_dormitorio.svg" alt="icono dormitorio">
+                    <p><?php echo $property_information["habitaciones"]; ?></p>
+                </li>    
+                <li>
                     <img class="icono" src="build/img/icono_wc.svg" alt="icono wc">
-                    <p>3</p>
+                    <p><?php echo $property_information["wc"]; ?></p>
                 </li>
                 <li>
                     <img class="icono" src="build/img/icono_estacionamiento.svg" alt="icono estacionamiento">
-                    <p>3</p>
-                </li>
-                <li>
-                    <img class="icono" src="build/img/icono_dormitorio.svg" alt="icono dormitorio">
-                    <p>4</p>
+                    <p><?php echo $property_information["estacionamiento"]; ?></p>
                 </li>
             </ul>
-            <p>Proin consequat viverra sapien, malesuada tempor tortor feugiat vitae. In dictum felis et nunc aliquet molestie. Proin tristique commodo felis, sed auctor elit auctor pulvinar. Nunc porta, nibh quis convallis sollicitudin, arcu nisl semper mi, vitae sagittis lorem dolor non risus. Vivamus accumsan maximus est, eu mollis mi. Proin id nisl vel odio semper hendrerit. Nunc porta in justo finibus tempor. Suspendisse lobortis dolor quis elit suscipit molestie. Sed condimentum, erat at tempor finibus, urna nisi fermentum est, a dignissim nisi libero vel est. Donec et imperdiet augue. Curabitur malesuada sodales congue. Suspendisse potenti. Ut sit amet convallis nisi.</p>
-            <p>Aliquam lectus magna, luctus vel gravida nec, iaculis ut augue. Praesent ac enim lorem. Quisque ac dignissim sem, non condimentum orci. Morbi a iaculis neque, ac euismod felis. Fusce augue quam, fermentum sed turpis nec, hendrerit dapibus ante. Cras mattis laoreet nibh, quis tincidunt odio fermentum vel. Nulla facilisi.</p>
+            <p><?php echo $property_information["descripcion"]; ?></p>
         </div>
     </main>
 
-<?php incluirTemplate("footer"); ?>
+<?php 
+    mysqli_close($db);
+    incluirTemplate("footer"); 
+?>
