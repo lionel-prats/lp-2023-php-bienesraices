@@ -1,5 +1,9 @@
 <?php
-
+    require "../../includes/funciones.php";
+    $auth = userLogued();
+    if(!$auth)
+        header("Location: /bienesraices");
+    
     // en este bloque valido si llego el query string "id" y si tiene valor numerico (seria el id de una propiedad a editar)
     // si "id" no llego, o no es un numero entero, redirecciono a la pantalla de inicio del administrador
     $id_propiedad = $_GET["id"];
@@ -137,7 +141,7 @@
         }
     }
 
-    require "../../includes/funciones.php";
+    
     incluirTemplate("header");
 ?>
 

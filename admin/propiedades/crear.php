@@ -1,5 +1,8 @@
 <?php
-
+    require "../../includes/funciones.php";
+    $auth = userLogued();
+    if(!$auth)
+        header("Location: /bienesraices");
     /*
     phpinfo(); // funcion que muestra info sensible de nuestro proyecto (nunca debe estar disponible en produccion)
     exit;
@@ -190,7 +193,6 @@
         }
     }
 
-    require "../../includes/funciones.php";
     incluirTemplate("header");
 ?>
 

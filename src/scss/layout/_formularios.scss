@@ -50,3 +50,19 @@
         margin: 0;
     }
 }
+
+.form-login {
+    .input-pass{
+        margin-bottom: .5rem;
+        display: none;
+    }
+    input[type=checkbox]{
+        display: initial;
+        width: auto;
+        margin: 0 .5rem;
+    }
+    label[for=checkbox]  {
+        display: initial;
+        font-size: 1.2rem;
+    }
+}

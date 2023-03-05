@@ -1,11 +1,9 @@
 <?php
+    require "../includes/funciones.php";
+    $auth = userLogued();
+    if(!$auth)
+        header("Location: /bienesraices");
     
-    /* echo "<pre>";
-    //print_r($_POST);
-    print_r($_SERVER);
-    echo "</pre>"; */
-    
-
     require "../includes/config/database.php";
     $db = conectarDB(); // instancia de la conexion a la BD
     
@@ -41,7 +39,7 @@
     $result = $_GET["result"] ?? null;
     // "??" placeholder php que, si no existe lo que se le pasa antes de "??" a $result (en este caso $_GET["result"]), le asignará lo que especifiquemos despues de "??" a $result (en este caso null) 
 
-    require "../includes/funciones.php";
+    
     incluirTemplate("header");
 ?>
 

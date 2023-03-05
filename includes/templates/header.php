@@ -1,3 +1,11 @@
+<?php 
+    if(!isset($_SESSION)) {
+        session_start();
+    }
+    $auth = $_SESSION["login"] ?? false; 
+    // $auth almacenará TRUE si existe $_SESSION["login"] y tendrá un valor lógico de FALSE si no existe $_SESSION["login"]
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +36,9 @@
                         <a href="/bienesraices/anuncios.php">Anuncios</a>
                         <a href="/bienesraices/blog.php">Blog</a>
                         <a href="/bienesraices/contacto.php">Contacto</a>
+                        <?php if($auth) { ?>
+                            <a href="/bienesraices/logout.php">Cerrar Sesión</a>
+                        <?php } ?>
                     </nav>
                 </div>
             </div>
