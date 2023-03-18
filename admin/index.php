@@ -5,9 +5,8 @@
     userLogued();
 
     use App\Propiedad;
-    $result_query = Propiedad::all();
-    debuguear($result_query);
-
+    $propiedades = Propiedad::all(); // arreglo de objetos (1 objeto por propiedad)
+    
     // bloque para eliminar un registro de propiedades
     if($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -32,13 +31,10 @@
         }
     }
     
-    
-
     // confirmacion de exito si una propiedad se cargo correctamente (se envia desde crear.php, como parte de la query string del header("Location":...))
     $result = $_GET["result"] ?? null;
     // "??" placeholder php que, si no existe lo que se le pasa antes de "??" a $result (en este caso $_GET["result"]), le asignará lo que especifiquemos despues de "??" a $result (en este caso null) 
 
-    
     incluirTemplate("header");
 ?>
 
@@ -61,7 +57,6 @@
         <a href="/bienesraices/admin/propiedades/inyeccion2.php" class="boton boton-verde">Login Devstagram</a>
         <a href="/bienesraices/admin/propiedades/inyeccion3.php" class="boton boton-amarillo">Baja de Usuario</a>
          -->
-
         <table class="propiedades">
             <thead>
                 <th>ID</th>
@@ -71,36 +66,25 @@
                 <th>Acciones</th>
             </thead>
             <tbody>
-                <?php 
-                    while($row = mysqli_fetch_assoc($result_query) ): 
-                        $image_name = explode('.', $row["imagen"])[0];
-                ?>
-                        <tr>
-                            <td><?php echo $row["id"]; ?></td>
-                            <td><?php echo $row["titulo"]; ?></td>
-                            <td>
-                                <img src="../imagenes/<?php echo $row["imagen"]; ?>" class="imagen-tabla" alt="imagen propiedad"> 
-                            </td>
-                            <!-- <td>
-                                <picture>
-                                    <source srcset="../build/img/<?php //echo $image_name; ?>.webp" type="image/webp" class="imagen-tabla" >
-                                    <source srcset="../build/img/<?php //echo $image_name; ?>.jpg" type="image/jpeg" class="imagen-tabla" >
-                                    <img loading="lazy" src="../build/img/<?php //echo $image_name; ?>.jpg" alt="imagen propiedad" class="imagen-tabla" >
-                                </picture>
-                            </td> -->
-                            <td>$ <?php echo $row["precio"]; ?></td>
-                            <td>
-                                <a href="/bienesraices/admin/propiedades/actualizar.php?id=<?php echo $row['id']; ?>" class="boton-amarillo-block">Actualizar</a>
-                                <form method="POST" class="w-100">
-                                    <input type="hidden" name="id_property" value="<?php echo $row["id"]; ?>">
-                                    <input type="submit" class="boton-rojo-block w-100 lh-default" value="Eliminar">
-                                </form>
-                            </td>
-                        </tr>
-                <?php endwhile; ?>
+                <?php foreach($propiedades as $propiedad): ?>
+                    <tr>
+                        <td><?php echo $propiedad->id; ?></td>
+                        <td><?php echo $propiedad->titulo; ?></td>
+                        <td>
+                            <img src="../imagenes/<?php echo $propiedad->imagen; ?>" class="imagen-tabla" alt="imagen propiedad"> 
+                        </td>
+                        <td>$ <?php echo $propiedad->precio; ?></td>
+                        <td>
+                            <a href="/bienesraices/admin/propiedades/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
+                            <form method="POST" class="w-100">
+                                <input type="hidden" name="id_property" value="<?php echo $propiedad->id; ?>">
+                                <input type="submit" class="boton-rojo-block w-100 lh-default" value="Eliminar">
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
-
     </main>
 
 <?php
