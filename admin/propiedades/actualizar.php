@@ -1,9 +1,15 @@
 <?php
+    require "../../includes/app.php";
+    
+    
+    userLogued();
+    /*
     require "../../includes/funciones.php";
     $auth = userLogued();
     if(!$auth)
         header("Location: /bienesraices");
-    
+    */
+
     // en este bloque valido si llego el query string "id" y si tiene valor numerico (seria el id de una propiedad a editar)
     // si "id" no llego, o no es un numero entero, redirecciono a la pantalla de inicio del administrador
     $id_propiedad = $_GET["id"];
@@ -11,9 +17,11 @@
     if(!$id_propiedad)
         header("Location: /bienesraices/admin");
 
+    /*    
     require "../../includes/config/database.php";
     $db = conectarDB();
-
+    */
+    
     // *** bloque que obtiene los datos de la propiedad a editar y la guarda en $property_founded 
     $query2 = "SELECT * FROM propiedades WHERE id = $id_propiedad";
     $resultado2 = mysqli_query($db, $query2); 

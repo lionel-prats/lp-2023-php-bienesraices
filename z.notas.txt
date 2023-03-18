@@ -15,3 +15,24 @@ composer require intervention/image
 la libreria es una clases
 
 -----
+
+VIDEO 372
+
+funcion PHP htmlspecialchars();
+
+ejemplo para entender:
+
+* al principio del codigo (crear.php) tire este echo vvv
+
+echo "<script>alert('hola')</script>";
+exit;
+** esto me genera un alert (js) ya que escribe codigo js en el documento HTML
+
+* si luego, tiro este eho vvv 
+
+echo htmlspecialchars("<script>alert('hola')</script>"); ;
+exit;
+** con esta funcion "anulo" el comportamiento js y simplemente se imprime por pantalla <script>alert('hola')</script> 
+
+*** usamos esta funcion para sanitizar datos de entrada en el formulario de crear propiedad
+*** para esto, creamos la funcion s() en funciones.php
