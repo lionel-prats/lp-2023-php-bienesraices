@@ -1,21 +1,20 @@
 <?php
     // __DIR__ = C:\xampp\htdocs\bienesraices\admin
+    
     require __DIR__ . '/../includes/app.php';
-    
-    $auth = userLogued();
-    if(!$auth)
-        header("Location: /bienesraices");
-    
-    $db = conectarDB(); // instancia de la conexion a la BD
-    
+    userLogued();
+
+    use App\Propiedad;
+    $result_query = Propiedad::all();
+    debuguear($result_query);
+
     // bloque para eliminar un registro de propiedades
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-
 
         $id_property = $_POST["id_property"];
         $id_property = filter_var($id_property, FILTER_VALIDATE_INT);
         // verificamos que haya llegado un int (evitamos inyeccion SQL, ya que se puede modificar el value del input:hidden)
-
+    
         if($id_property){            
             // eliminar la imagen asociada al registro a eliminar
             $query = "select imagen FROM propiedades WHERE id = $id_property";
@@ -33,8 +32,7 @@
         }
     }
     
-    $query = "SELECT * FROM propiedades";
-    $result_query = mysqli_query($db, $query);
+    
 
     // confirmacion de exito si una propiedad se cargo correctamente (se envia desde crear.php, como parte de la query string del header("Location":...))
     $result = $_GET["result"] ?? null;

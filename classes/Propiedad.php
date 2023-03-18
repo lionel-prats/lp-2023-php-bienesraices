@@ -130,4 +130,37 @@ class Propiedad {
         }   
         return self::$errores;
     }
+
+    public static function all(){
+        $query = "SELECT * FROM propiedades";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+    public static function consultarSQL($query) {
+        
+        // consultar la bd
+        $resultado = self::$db->query($query);
+        
+        // iterar los resultados
+        // aca armamos un array de objetos. Habra un objeto asociado a cada registro de la tabla propiedades
+        $array = [];
+        while($registro = $resultado->fetch_assoc() ):
+            $array[] = self::crearObjeto($registro);
+        endwhile;
+
+        // liberar la memoria (VIDEO 370)
+        $resultado->free();
+
+        // retornar los resultados (array de objetos)
+        return $array;
+    }
+    protected static function crearObjeto($registro) {
+        // con "new self" creo una instancia de la clase Propiedad (clase contenedora del metodo)
+        $objeto = new self;
+        foreach($registro as $key => $value) {
+            if(property_exists($objeto, $key))
+                $objeto->$key = $value;
+        }
+        return $objeto;
+    }
 }
