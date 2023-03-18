@@ -1,56 +1,24 @@
 <?php
+    use App\Propiedad;
     require "../../includes/app.php";
-    
-    
     userLogued();
-    /*
-    require "../../includes/funciones.php";
-    $auth = userLogued();
-    if(!$auth)
-        header("Location: /bienesraices");
-    */
-
-    // en este bloque valido si llego el query string "id" y si tiene valor numerico (seria el id de una propiedad a editar)
-    // si "id" no llego, o no es un numero entero, redirecciono a la pantalla de inicio del administrador
+    
+    //debuguear($_SERVER);
+    // validar la URL por id valido
     $id_propiedad = $_GET["id"];
     $id_propiedad =  filter_var($id_propiedad, FILTER_VALIDATE_INT); 
     if(!$id_propiedad)
         header("Location: /bienesraices/admin");
-
-    /*    
-    require "../../includes/config/database.php";
-    $db = conectarDB();
-    */
     
-    // *** bloque que obtiene los datos de la propiedad a editar y la guarda en $property_founded 
-    $query2 = "SELECT * FROM propiedades WHERE id = $id_propiedad";
-    $resultado2 = mysqli_query($db, $query2); 
-    
-    $property_founded = mysqli_fetch_assoc($resultado2); 
-    // de esta forma capturo solo el primer elemento de todos los registros que pueda retornar una consulta a la BD (que igual en este caso se de antemano que va a ser solo 1 registro)
-    // notar que la funcion mysqli_fetch_assoc() tambien sirve para iterar una consulta que retorne multiples registros, junto a un while() (ejemplo, <select> de vendedores en el form de esta pagina)
-    // *** fin del bloque 
-
-    /* echo "<pre>";
-    print_r($property_founded);
-    echo "</pre>"; */
+   
+    $propiedad = Propiedad::find($id_propiedad);
 
     $query2 = "SELECT * FROM vendedores";
     $resultado2 = mysqli_query($db, $query2); 
 
     $errores = []; 
 
-    $titulo = $property_founded["titulo"];
-    $precio = $property_founded["precio"];
-    $descripcion = $property_founded["descripcion"];
-    $habitaciones = $property_founded["habitaciones"];
-    $wc = $property_founded["wc"];
-    $estacionamientos = $property_founded["estacionamiento"];
-    $vendedores_id = $property_founded["vendedores_id"];
-    $property_image = $property_founded["imagen"];
-
     $modificado = date("Y/m/d");
-    
     
     if($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -172,52 +140,9 @@
         <!-- ya que aunque modifique el valor del id por un string en la URL -> id="hola" antes de submitear, el form se va a enviar por POST a lo que especifiquemos (u omitamos / herencia) en el atributo action -->
         <!-- de esta forma salta la validacion del id, no termino de entender como funciona con las pruebas que hice, pero funciona, asi que sigo avanzando -->
         <form class="formulario" method="POST" enctype="multipart/form-data"> 
-            <fieldset>
-                <legend>Información General</legend>
-
-                <label for="titulo">Título de la propiedad:</label>
-                <input type="text" id="titulo" name="titulo" action="/bienesraices/admin/propiedades/actualizar.php?id=2" placeholder="Título Propiedad" value="<?php  echo $titulo; ?>">
-                
-                <label for="precio">Precio propiedad:</label>
-                <input type="number" id="precio" name="precio" placeholder="Precio Propiedad" value="<?php  echo $precio; ?>">
-                
-                <label for="imagen">Imagen:</label>
-                <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
-                
-                <img src="/bienesraices/imagenes/<?php echo $property_image; ?>" alt="imagen propiedad" class="imagen-small">
-
-                <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" name="descripcion"><?php  echo $descripcion; ?></textarea>
-            </fieldset>
-
-            <fieldset>
-                <legend>Información de la propiedad</legend>
-
-                <label for="habitaciones">Habitaciones:</label>
-                <input type="number" id="habitaciones" name="habitaciones" placeholder="Ej: 3" min="0" max="9" value="<?php  echo $habitaciones; ?>">
-                
-                <label for="wc">Baños:</label>
-                <input type="number" id="wc" name="wc" placeholder="Ej: 3" min="0" max="9" value="<?php  echo $wc; ?>">
-                
-                <label for="estacionamientos">Estacionamientos:</label>
-                <input type="number" id="estacionamientos" name="estacionamientos" placeholder="Ej: 3" min="0" max="9" value="<?php  echo $estacionamientos; ?>"> 
             
-            </fieldset>
+            <?php include('../../includes/templates/formulario_propiedades.php'); ?>
 
-            <fieldset>
-                <legend>Vendedor</legend>
-                <select name="vendedores_id">
-                    <option value="" disabled selected>-- Seleccione --</option>
-                    <?php while($row = mysqli_fetch_assoc($resultado2) ): ?>
-                        <option 
-                            value="<?php echo $row["id"]; ?>" 
-                            <?php echo $vendedores_id == $row["id"] ? "selected" : "";  ?>
-                        >
-                            <?php echo $row["nombre"] . " " . $row["apellido"]; ?>
-                        </option>
-                    <?php endwhile; ?>
-                </select>
-            </fieldset>
             <input type="submit" value="Actualizar Propiedad" class="boton boton-verde">
         </form>
     </main>

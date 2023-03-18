@@ -3,7 +3,7 @@
     
     require __DIR__ . '/../includes/app.php';
     userLogued();
-
+    
     use App\Propiedad;
     $propiedades = Propiedad::all(); // arreglo de objetos (1 objeto por propiedad)
     

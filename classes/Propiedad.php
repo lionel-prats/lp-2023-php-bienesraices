@@ -131,11 +131,20 @@ class Propiedad {
         return self::$errores;
     }
 
+    // trae todas las propiedades de la tabla
     public static function all(){
         $query = "SELECT * FROM propiedades";
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
+
+    // busca una propiedad por id
+    public static function find($id){
+        $query = "SELECT * FROM propiedades WHERE id = $id";
+        $resultado = self::consultarSQL($query);
+        return array_shift($resultado);
+    }
+
     public static function consultarSQL($query) {
         
         // consultar la bd

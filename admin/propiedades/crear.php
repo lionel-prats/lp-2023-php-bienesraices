@@ -1,9 +1,11 @@
 <?php
+   
     require "../../includes/app.php";
     use App\Propiedad;
     use Intervention\Image\ImageManagerStatic as Image;
 
     //debuguear(TEMPLATES_URL . "/formulario_propiedades.php");
+    
    
     userLogued();
 
@@ -27,7 +29,7 @@
             $numero_10_digitos_aleatorio = rand(); 
             $nombre_imagen = md5( uniqid( $numero_10_digitos_aleatorio, true ) ) . "." . $extension_image; 
  
-            // seteo el atributo $imagen con el nombre generado y almacenado en $nombre_imagen 
+            // seteo el atributo $imagen (de la instancia de la clase Propiedad - $propiedad -) con el nombre generado y almacenado en $nombre_imagen 
             $propiedad->setImagen($nombre_imagen);
         }
         

@@ -16,6 +16,14 @@ la libreria es una clases
 
 -----
 
+VIDEO 370
+
+property_exists($objeto, $key)
+
+* funcion PHP para saber si una llave existe dentro de un objeto
+
+-----
+
 VIDEO 372
 
 funcion PHP htmlspecialchars();
@@ -36,3 +44,11 @@ exit;
 
 *** usamos esta funcion para sanitizar datos de entrada en el formulario de crear propiedad
 *** para esto, creamos la funcion s() en funciones.php
+
+-----
+
+VIDEO 373
+
+array_shift();
+
+* funcion PHP que retorna el primer elemento de un array.
