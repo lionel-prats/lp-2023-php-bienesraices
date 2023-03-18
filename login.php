@@ -1,5 +1,5 @@
 <?php
-    require "includes/config/database.php";
+    require "includes/app.php";
     $db = conectarDB();
     
     $errors = [];
@@ -38,7 +38,6 @@
             }
         }
     }
-    require "includes/funciones.php";
     incluirTemplate("header");
 ?>
     <main class="contenedor seccion contenido-centrado">

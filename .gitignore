@@ -9,3 +9,5 @@
 /includes/config/database.php
 /imagenes
 usuario.php
+/vendor/
+composer.lock

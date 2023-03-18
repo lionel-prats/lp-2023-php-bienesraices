@@ -6,7 +6,7 @@
     if(!$id_property)
         header("Location: /bienesraices/error.php");
         
-    require __DIR__ . "/includes/config/database.php";
+    require "includes/app.php";
     $db = conectarDB();
     $query = "SELECT * FROM propiedades WHERE id = $id_property"; 
     $result_query = mysqli_query($db, $query);
@@ -17,7 +17,6 @@
 
     $property_information = mysqli_fetch_assoc($result_query); 
 
-    require "includes/funciones.php";
     incluirTemplate("header");
 ?>
     <main class="contenedor seccion contenido-centrado">

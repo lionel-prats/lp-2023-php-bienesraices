@@ -1,10 +1,11 @@
 <?php
-    require "../includes/funciones.php";
+    // __DIR__ = C:\xampp\htdocs\bienesraices\admin
+    require __DIR__ . '/../includes/app.php';
+    
     $auth = userLogued();
     if(!$auth)
         header("Location: /bienesraices");
     
-    require "../includes/config/database.php";
     $db = conectarDB(); // instancia de la conexion a la BD
     
     // bloque para eliminar un registro de propiedades

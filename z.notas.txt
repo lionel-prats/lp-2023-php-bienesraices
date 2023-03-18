@@ -1,1 +1,17 @@
 "npm run dev" o "npx gulp" para activar gulp 
+
+-----
+
+VIDEO 361
+composer init para crear y configurar el composer.json 
+composer update crea la carpeta vendor, que incluye el archivo autoload.php (nos sirve para importar clases, en nuestro caso desde la carpeta /classes - asi lo especificamos en composer.json -)
+
+-----
+
+VIDEO 369
+Instalacion y uso de la libreria Intervetion Image para subir imagenes al servidor
+composer require intervention/image 
+
+la libreria es una clases
+
+-----

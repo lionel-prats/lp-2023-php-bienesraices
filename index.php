@@ -1,7 +1,8 @@
 <?php
+    
     // __DIR__ === C:\xampp\htdocs\bienesraices
     declare(strict_types = 1); // funcion PHP para que el editor nos marque posibles errores
-    require "includes/funciones.php";
+    require "includes/app.php";
     incluirTemplate("header", $inicio = true);
 ?>
 

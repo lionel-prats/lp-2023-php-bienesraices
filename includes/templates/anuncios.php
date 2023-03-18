@@ -1,6 +1,5 @@
 <?php 
     // __DIR__ === C:\xampp\htdocs\bienesraices\includes\templates
-    require __DIR__ . "/../config/database.php";
     // "los require son relativos a los documentos que los esta mandando llamar (VIDEO 331)"
     $db = conectarDB();
 
