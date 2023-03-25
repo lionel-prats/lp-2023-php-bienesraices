@@ -17,92 +17,20 @@
     $query2 = "SELECT * FROM vendedores";
     $resultado2 = mysqli_query($db, $query2); 
 
-    $errores = []; 
+    // inicializamos la variable $errores como array vacio para evitar warnings en la renderizacion de la vista
+    $errores = Propiedad::getErrores(); 
 
     $modificado = date("Y/m/d");
     
     if($_SERVER["REQUEST_METHOD"] === "POST") {
 
-        //debuguear($_POST);
-
-        // asignar los atributos
-        //$args = [];
-        //$args["titulo"] = $_POST["titulo"] ?? null;
-        //$args["precio"] = $_POST["precio"] ?? null;
         $args = $_POST["propiedad"];
 
-        /* foreach($_POST as $key) {
-            $args[$key] = $_POST["titulo"] ?? null;
-        } */
-        /* 
-        $args["titulo"] = $_POST["titulo"] ?? null;
-        $args["titulo"] = $_POST["titulo"] ?? null;
-        $args["titulo"] = $_POST["titulo"] ?? null;
-        $args["titulo"] = $_POST["titulo"] ?? null;
-        $args["titulo"] = $_POST["titulo"] ?? null; */
         $propiedad->sincronizar($args);
-        debuguear($propiedad);
 
-        $imagen = $_FILES["imagen"];
-
-        /*
-        // con la funcion mysqli_real_escape_string() evitamos la inyeccion SQL
-        $titulo = mysqli_real_escape_string($db, $_POST["titulo"]);
-        $precio = mysqli_real_escape_string($db, $_POST["precio"]);
-        $descripcion = mysqli_real_escape_string($db, $_POST["descripcion"]);
-        $habitaciones = mysqli_real_escape_string($db, $_POST["habitaciones"]);
-        $wc = mysqli_real_escape_string($db, $_POST["wc"]);
-        $estacionamientos = mysqli_real_escape_string($db, $_POST["estacionamientos"]);
-        */
-        if(isset($_POST["vendedores_id"]))
-            $vendedores_id = mysqli_real_escape_string($db, $_POST["vendedores_id"]);
-            
-        if(!$titulo) {
-            $errores[] = "Debes añadir un título";
-        }
-        if(!$precio) {
-            $errores[] = "El precio es obligatorio";
-        }
-        if(strlen($descripcion) < 50) {
-            $errores[] = "La descripción es obligatoria y debe ser de al menos 50 caracteres";
-        }
-        if($habitaciones === "") {
-            $errores[] = "El numero de habitaciones es obligatorio";
-        }
-        if($wc === "") {
-            $errores[] = "El numero de baños es obligatorio";
-        }
-        if($estacionamientos === "") {
-            $errores[] = "El numero de estacionamientos es obligatorio";
-        }
-        if(!$vendedores_id) {
-            $errores[] = "Elige un vendedor";
-        } 
-
+        // valido posibles errores en los datos enviados por el usuario
+        $errores = $propiedad->validar();
         
-        // validacion imagen
-        $types_image_allowed = ['image/jpg', 'image/jpeg','image/png', 'image/webp'];
-        $type_allowed = false;
-        
-        // validacion de imagen, si es que el usuario cargo 1 nueva
-        if($imagen["name"]){
-            foreach($types_image_allowed as $type){
-                if($imagen["type"] == $type) {
-                    $type_allowed = true;
-                    break;
-                }
-            }
-            if(!$type_allowed)
-                $errores[] = "El formato de archivo no es válido"; 
-            else {
-                $peso_maximo_imagen = 1000 * 400; // 1kb == 1000 bytes -> tamaño maximo permitido para imagen == 100kb
-                if($imagen["size"] > $peso_maximo_imagen)
-                    $errores[] = "La imagen es muy pesada"; 
-            }
-        }
-        // fin validacion imagen
-       
-
         if(empty($errores)) {
             
             $nombre_imagen = $property_image;

@@ -94,7 +94,7 @@ class Propiedad {
     }
 
     public function validar() {
-        
+
         if(!$this->titulo) {
             self::$errores[] = "Debes añadir un título";
         }
@@ -180,7 +180,7 @@ class Propiedad {
     public function sincronizar( $args = [] ) {
         // con $this referenciamos (hacemos referencia, invocamos) a la instancia creada en actualizar.php (inmueble a editar)
         foreach($args as $key => $value) {
-            if(property_exists($this, $key) and !empty($value))
+            if(property_exists($this, $key)/*  and !empty($value) */)
                 $this->$key = $value;
         }
         //debuguear($this);
