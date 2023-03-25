@@ -44,7 +44,7 @@ class Propiedad {
         $this->descripcion = $args['descripcion'] ?? '';
         $this->habitaciones = $args['habitaciones'] ?? '';
         $this->wc = $args['wc'] ?? '';
-        $this->estacionamiento = $args['estacionamientos'] ?? '';
+        $this->estacionamiento = $args['estacionamiento'] ?? '';
         $this->creado = date("Y/m/d") ?? '';
         $this->vendedores_id = $args['vendedores_id'] ?? 1;
     }
@@ -94,6 +94,7 @@ class Propiedad {
     }
 
     public function validar() {
+        
         if(!$this->titulo) {
             self::$errores[] = "Debes añadir un título";
         }
@@ -143,6 +144,7 @@ class Propiedad {
         $query = "SELECT * FROM propiedades WHERE id = $id";
         $resultado = self::consultarSQL($query);
         return array_shift($resultado);
+        // array_shift() elimina el primer elemento de un array, y a su vez lo retorna (puedo guardarlo en una variable, o retornarlo como hace esta funcion)
     }
 
     public static function consultarSQL($query) {
@@ -164,12 +166,24 @@ class Propiedad {
         return $array;
     }
     protected static function crearObjeto($registro) {
-        // con "new self" creo una instancia de la clase Propiedad (clase contenedora del metodo)
+        // con "new self" creo una instancia de la clase Propiedad (esta misma clase)
         $objeto = new self;
         foreach($registro as $key => $value) {
             if(property_exists($objeto, $key))
                 $objeto->$key = $value;
         }
         return $objeto;
+    }
+
+    // sincroniza el objeto en memoria con los cambios realizados por el usuario (actualizar propiedad)
+    // metodo utilizado en actualizar.php: va a reescribir el objeto en memoria (inmmueble a actualizar, return de ::find()), con los datos que vengan del formulario de edicion de un inmueble
+    public function sincronizar( $args = [] ) {
+        // con $this referenciamos (hacemos referencia, invocamos) a la instancia creada en actualizar.php (inmueble a editar)
+        foreach($args as $key => $value) {
+            if(property_exists($this, $key) and !empty($value))
+                $this->$key = $value;
+        }
+        //debuguear($this);
+        return;
     }
 }

@@ -12,6 +12,7 @@
     
    
     $propiedad = Propiedad::find($id_propiedad);
+    //debuguear($propiedad);
 
     $query2 = "SELECT * FROM vendedores";
     $resultado2 = mysqli_query($db, $query2); 
@@ -22,8 +23,29 @@
     
     if($_SERVER["REQUEST_METHOD"] === "POST") {
 
+        //debuguear($_POST);
+
+        // asignar los atributos
+        //$args = [];
+        //$args["titulo"] = $_POST["titulo"] ?? null;
+        //$args["precio"] = $_POST["precio"] ?? null;
+        $args = $_POST["propiedad"];
+
+        /* foreach($_POST as $key) {
+            $args[$key] = $_POST["titulo"] ?? null;
+        } */
+        /* 
+        $args["titulo"] = $_POST["titulo"] ?? null;
+        $args["titulo"] = $_POST["titulo"] ?? null;
+        $args["titulo"] = $_POST["titulo"] ?? null;
+        $args["titulo"] = $_POST["titulo"] ?? null;
+        $args["titulo"] = $_POST["titulo"] ?? null; */
+        $propiedad->sincronizar($args);
+        debuguear($propiedad);
+
         $imagen = $_FILES["imagen"];
 
+        /*
         // con la funcion mysqli_real_escape_string() evitamos la inyeccion SQL
         $titulo = mysqli_real_escape_string($db, $_POST["titulo"]);
         $precio = mysqli_real_escape_string($db, $_POST["precio"]);
@@ -31,6 +53,7 @@
         $habitaciones = mysqli_real_escape_string($db, $_POST["habitaciones"]);
         $wc = mysqli_real_escape_string($db, $_POST["wc"]);
         $estacionamientos = mysqli_real_escape_string($db, $_POST["estacionamientos"]);
+        */
         if(isset($_POST["vendedores_id"]))
             $vendedores_id = mysqli_real_escape_string($db, $_POST["vendedores_id"]);
             

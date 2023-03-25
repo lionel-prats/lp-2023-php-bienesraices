@@ -8,9 +8,9 @@
     
    
     userLogued();
-
     $db = conectarDB();
     
+    // aca instaciamos Propiedad para que los placeholder del form de creacion de inmueble no tiren warnings (ver formulario_propiedads.php)
     $propiedad = new Propiedad();
 
     $query2 = "SELECT * FROM vendedores";
@@ -20,12 +20,12 @@
     
     if($_SERVER["REQUEST_METHOD"] === "POST") {
 
-        $propiedad = new Propiedad($_POST);
+        $propiedad = new Propiedad($_POST["propiedad"]);
 
         // verifico si el usuario envio una imagen
-        if($_FILES["imagen"]["tmp_name"]) {
+        if($_FILES["propiedad"]["tmp_name"]["imagen"]) {
             // genero un nombre unico para la imagen enviada por el usuario 
-            $extension_image = substr($_FILES["imagen"]["type"], 6);
+            $extension_image = substr($_FILES["propiedad"]["type"]["imagen"], 6);
             $numero_10_digitos_aleatorio = rand(); 
             $nombre_imagen = md5( uniqid( $numero_10_digitos_aleatorio, true ) ) . "." . $extension_image; 
  
@@ -42,7 +42,7 @@
                 mkdir(CARPETA_IMAGENES);
             
             // realizo un resize a la imagen con la libreria importada intervention image
-            $image = Image::make($_FILES["imagen"]["tmp_name"])->fit(800, 600);
+            $image = Image::make($_FILES["propiedad"]["tmp_name"]["imagen"])->fit(800, 600);
 
             // guardo la imagen enviada por el usuario en el servidor, usando la libreria intervention image
             $image->save(CARPETA_IMAGENES. $nombre_imagen);
