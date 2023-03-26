@@ -1,5 +1,6 @@
 <?php
     use App\Propiedad;
+    use Intervention\Image\ImageManagerStatic as Image;
     require "../../includes/app.php";
     userLogued();
     
@@ -28,28 +29,27 @@
 
         $propiedad->sincronizar($args);
 
-        // valido posibles errores en los datos enviados por el usuario
-        $errores = $propiedad->validar();
-        
-        if(empty($errores)) {
+        // verifico si el usuario envio una imagen
+        if($_FILES["propiedad"]["tmp_name"]["imagen"]) {
+            // guardo en memoria el nombre de la vieja imagen para eliminarla luego, ya que el usuario la quiere cambiar
+            $oldImage = $propiedad->imagen;
             
-            $nombre_imagen = $property_image;
+            // genero un nombre unico para la imagen enviada por el usuario 
+            $extension_image = substr($_FILES["propiedad"]["type"]["imagen"], 6);
+            $numero_10_digitos_aleatorio = rand(); 
+            $nombre_imagen = md5( uniqid( $numero_10_digitos_aleatorio, true ) ) . "." . $extension_image; 
+            // seteo el atributo $imagen (de la instancia de la clase Propiedad - $propiedad -) con el nombre generado y almacenado en $nombre_imagen 
+            $propiedad->setImagen($nombre_imagen);
+        }
 
-            // borrado de imagen anterior y subida al server de imagen nueva, si el usuario cargo una nueva imagen para la propiedad            
-            if($imagen["name"]){
-                $carpeta_imagenes = "../../imagenes/";
-                unlink( $carpeta_imagenes . $property_image ); 
-                // funcion php para eliminar archivos que esten dentro del servidor
-                // le pasamos el path relativo del archivo que queremos eliminar (../../imagenes/ae55166e7c9db8ed239ad5910bbba41c.jpeg)
+        $errores = $propiedad->validar();
+    
+        if(empty($errores)) {
 
-                // generar un nombre unico para las imagenes 
-                $extension_image = substr($imagen["type"], 6);
-                $numero_10_digitos_aleatorio = rand(); // ver descripcion en crear.php
-                $nombre_imagen = md5( uniqid( $numero_10_digitos_aleatorio, true ) ) . "." . $extension_image; // ver descripcion en crear.php
+            // si el usuario quiere cambiar la imagen, elimino la anterior del servidor
+            if(isset($oldImage))
+                $propiedad->deleteImage($oldImage);
 
-                // subir imagen
-                move_uploaded_file($imagen["tmp_name"], $carpeta_imagenes . $nombre_imagen); // ver descripcion en crear.php
-            }
 
             // update en la DB
             $query = "UPDATE propiedades SET titulo = '$titulo', precio = $precio, imagen = '$nombre_imagen' ,descripcion = '$descripcion', habitaciones = $habitaciones, wc = $wc, estacionamiento = $estacionamientos, vendedores_id = $vendedores_id, modificado = '$modificado' WHERE id = $id_propiedad";

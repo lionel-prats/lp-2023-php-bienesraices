@@ -52,3 +52,16 @@ VIDEO 373
 array_shift();
 
 * funcion PHP que retorna el primer elemento de un array.
+
+-----
+
+VIDEO 375
+
+strpos("monitos.jpg", ".") -> retorna la posicion del caracter pasado como 2do. argumento (en este caso 7)
+substr("monitos.jpg", 8) -> retorna un substring empezando por la posicion pasada como 2do argumento (en este caso "jpg");
+
+-----
+
+VIDEO 376
+
+file_exists(CARPETA_IMAGENES . $oldImage) -> funcion para averiguar si un archivo existe dentro del proyecto
