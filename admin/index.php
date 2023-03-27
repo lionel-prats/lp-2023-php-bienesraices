@@ -5,14 +5,8 @@
     userLogued();
     
     use App\Propiedad;
-    use App\Vendedor;
-    
-    
 
     $propiedades = Propiedad::all(); // arreglo de objetos (1 objeto por propiedad)
-    
-    $vendedor = Vendedor::all(); 
-    //debuguear($vendedor);
 
     // bloque para eliminar un registro de propiedades
     if($_SERVER["REQUEST_METHOD"] === "POST") {

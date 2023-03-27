@@ -76,5 +76,20 @@ protected static tabla = "";
 
 con "protected" este atributo solo puede ser accedido desde la propia clase, no puede modificarse desde los objetos  
 
-MODIFICADOR DE ACCESO static 
+MODIFICADOR DE ACCESO static vvv
 
+static::$tabla
+
+lo usamos en la clase ActiveRecord para referenciar al atributo estatico $tabla, reescrito en las Clases Propiedad y Vendedor
+
+-----
+
+VIDEO 382 
+
+En la clase ActiveRecord, metodo crearObjeto() vvv
+
+$objeto = new static;
+
+con "new static" voy a crear una instancia de la la clase desde donde se invoque a este metodo crearObjeto()
+
+-----

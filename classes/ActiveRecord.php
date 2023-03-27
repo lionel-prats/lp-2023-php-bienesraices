@@ -9,7 +9,7 @@ class ActiveRecord {
     // este seteo lo hacemos en el archivo app.php, y asi estara disponible la instancia de mysqli en todo archivo donde importemos app.php
     protected static $db;
     
-    protected static $columnasDB = ['id','titulo','precio','imagen','descripcion','habitaciones','wc','estacionamiento','creado','vendedores_id'];
+    protected static $columnasDB = [];
     
     protected static $tabla = "";
 
@@ -21,6 +21,7 @@ class ActiveRecord {
     // errores
     protected static $errores = [];
 
+    /*
     public $id;
     public $titulo;
     public $precio;
@@ -31,12 +32,14 @@ class ActiveRecord {
     public $estacionamiento;
     public $creado;
     public $vendedores_id;
+    */
 
     // definir la conexion a la BD
     public static function setDB($database) {
         self::$db =$database;
     }
 
+    /*
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? '';
@@ -50,7 +53,8 @@ class ActiveRecord {
         $this->creado = date("Y/m/d") ?? '';
         $this->vendedores_id = $args['vendedores_id'] ?? 1;
     }
-
+    */
+    
     public function guardar() {
         if($this->id) {
             return $this->actualizar();   
@@ -196,7 +200,6 @@ class ActiveRecord {
     // trae todas las propiedades de la tabla
     public static function all(){
         $query = "SELECT * FROM " . static::$tabla;
-        //debuguear($query);
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
@@ -228,8 +231,8 @@ class ActiveRecord {
     }
     protected static function crearObjeto($registro) {
         // con "new self" creo una instancia de esta misma clase (es decir, con los atributos que le especificamos en esta clase)
+        // con new static voy a crear una instancia de la la clase desde donde se invoque a este metodo crearObjeto() (VIDEO 382)
         $objeto = new /* self */ static;
-       
         foreach($registro as $key => $value) {
             if(property_exists($objeto, $key))
                 $objeto->$key = $value;
