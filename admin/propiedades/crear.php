@@ -2,24 +2,27 @@
    
     require "../../includes/app.php";
     use App\Propiedad;
+    use App\Vendedor;
     use Intervention\Image\ImageManagerStatic as Image;
 
     //debuguear(TEMPLATES_URL . "/formulario_propiedades.php");
     
     userLogued();
-    $db = conectarDB();
     
     // aca instaciamos Propiedad para que los placeholder del form de creacion de inmueble no tiren warnings (ver formulario_propiedads.php)
     $propiedad = new Propiedad();
-
+   
+    $vendedores = Vendedor::all();
+    /*
     $query2 = "SELECT * FROM vendedores";
     $resultado2 = mysqli_query($db, $query2); 
+    */
 
     $errores = Propiedad::getErrores();
     
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-
         $propiedad = new Propiedad($_POST["propiedad"]);
+        //debuguear($propiedad);
 
         // verifico si el usuario envio una imagen
         if($_FILES["propiedad"]["tmp_name"]["imagen"]) {
