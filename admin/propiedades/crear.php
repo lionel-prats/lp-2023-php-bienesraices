@@ -6,7 +6,6 @@
 
     //debuguear(TEMPLATES_URL . "/formulario_propiedades.php");
     
-   
     userLogued();
     $db = conectarDB();
     
@@ -47,17 +46,12 @@
             // guardo la imagen enviada por el usuario en el servidor, usando la libreria intervention image
             $image->save(CARPETA_IMAGENES. $nombre_imagen);
             
-            $resultado = $propiedad->guardar();
-
-            if($resultado){
-                header("Location: /bienesraices/admin?result=1");
-            }
+            $propiedad->guardar();
         }
     }
 
     incluirTemplate("header");
 ?>
-
     <main class="contenedor seccion">
         <h1>Crear</h1>
 

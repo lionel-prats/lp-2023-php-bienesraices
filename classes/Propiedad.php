@@ -50,7 +50,16 @@ class Propiedad {
     }
 
     public function guardar() {
+        if($this->id) {
+            return $this->actualizar();   
+        } else {
+            return $this->crear();   
+        }
+    }
 
+    public function crear() {
+
+        // array sincronizado con el objeto en memoria (inmueble a crear) ya sanitizado y listo para guardar en BD
         $atributos = $this->sanitizarAtributos();
 
         $keysAtributos = array_keys($atributos);
@@ -62,9 +71,36 @@ class Propiedad {
 
         $resultado = self::$db->query($query);
 
-        return $resultado;
+        if($resultado){
+            header("Location: /bienesraices/admin?result=1");
+        }
     }
 
+    public function actualizar() {
+
+        // array sincronizado con el objeto en memoria (inmueble a editar) ya sanitizado y listo para guardar en BD
+        $atributos = $this->sanitizarAtributos();
+
+        $valores = [];
+        foreach($atributos as $key => $value) {
+            $valores[] = "$key = '$value'";
+        }
+        $query = "UPDATE propiedades SET ";
+        $query .= join(', ', $valores);
+        $query .= " WHERE id = '"; 
+        $query .= self::$db->escape_string($this->id);
+        $query .= "' LIMIT 1";
+
+        $resultado = self::$db->query($query);
+
+        if($resultado){
+            // redireccionar al usuario luego de creado el registro 
+            // esta funcion sirve para enviar datos en el encabezado de una peticion HTTP
+            header("Location: /bienesraices/admin?result=2");
+        }
+    }
+
+    // este metodo mapea el objeto en memoria (datos de un inmueble) y retorna un array asociativo con los datos de ese inmueble
     public function atributos(){
         $atributos = [];
         foreach(self::$columnasDB as $columna) {
@@ -75,6 +111,7 @@ class Propiedad {
         return $atributos;
     }
     
+    // este metodo retorna un array asociativo con los datos del objeto en memoria, ya sanitizados y listos para mandarlos a la BD
     public function sanitizarAtributos() {
         $atributos = $this->atributos();
         $sanitizado = [];

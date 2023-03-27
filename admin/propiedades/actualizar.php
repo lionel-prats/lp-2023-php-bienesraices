@@ -11,7 +11,6 @@
     if(!$id_propiedad)
         header("Location: /bienesraices/admin");
     
-   
     $propiedad = Propiedad::find($id_propiedad);
     //debuguear($propiedad);
 
@@ -50,24 +49,13 @@
             if(isset($oldImage))
                 $propiedad->deleteImage($oldImage);
 
+            // almaceno la nueva imagen en el disco duro
+            $image = Image::make($_FILES["propiedad"]["tmp_name"]["imagen"])->fit(800, 600);$image->save(CARPETA_IMAGENES. $nombre_imagen);
 
-            // update en la DB
-            $query = "UPDATE propiedades SET titulo = '$titulo', precio = $precio, imagen = '$nombre_imagen' ,descripcion = '$descripcion', habitaciones = $habitaciones, wc = $wc, estacionamiento = $estacionamientos, vendedores_id = $vendedores_id, modificado = '$modificado' WHERE id = $id_propiedad";
-
-            // echo $query; 
-    
-            $resultado = mysqli_query($db, $query); 
-            // le paso la instancia de la conexion y la query
-            // la ejecucion de mysql_query arroja un bool -> true si el insert se ejecuto correctamente 
-
-            if($resultado){
-                // redireccionar al usuario luego de creado el registro 
-                // esta funcion sirve para enviar datos en el encabezado de una peticion HTTP
-                header("Location: /bienesraices/admin?result=2");
-            }
+            // UPDATE de registro en DB
+            $propiedad->guardar();
         }
     }
-
     
     incluirTemplate("header");
 ?>
