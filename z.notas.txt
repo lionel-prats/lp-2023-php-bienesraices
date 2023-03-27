@@ -65,3 +65,16 @@ substr("monitos.jpg", 8) -> retorna un substring empezando por la posicion pasad
 VIDEO 376
 
 file_exists(CARPETA_IMAGENES . $oldImage) -> funcion para averiguar si un archivo existe dentro del proyecto
+
+-----
+
+VIDEO 381 
+
+en la clase ActiveRecord vvv 
+
+protected static tabla = "";
+
+con "protected" este atributo solo puede ser accedido desde la propia clase, no puede modificarse desde los objetos  
+
+MODIFICADOR DE ACCESO static 
+

@@ -11,6 +11,8 @@ class ActiveRecord {
     
     protected static $columnasDB = ['id','titulo','precio','imagen','descripcion','habitaciones','wc','estacionamiento','creado','vendedores_id'];
     
+    protected static $tabla = "";
+
     // formato de imagenes permitido
     protected static $types_image_allowed = ['jpg', 'jpeg','png', 'webp'];
     // validador del formato de imagen
@@ -58,7 +60,6 @@ class ActiveRecord {
     }
 
     public function crear() {
-
         // array sincronizado con el objeto en memoria (inmueble a crear) ya sanitizado y listo para guardar en BD
         $atributos = $this->sanitizarAtributos();
 
@@ -66,8 +67,8 @@ class ActiveRecord {
         $keysToString = join(', ', $keysAtributos);
         $valuesAtributos = array_values($atributos);
         $valuesToString = join("', '", $valuesAtributos);
-        
-        $query = "INSERT INTO propiedades ($keysToString) VALUES ('$valuesToString')";
+
+        $query = "INSERT INTO " . static::$tabla . " ($keysToString) VALUES ('" . $valuesToString. "')";
 
         $resultado = self::$db->query($query);
 
@@ -77,7 +78,6 @@ class ActiveRecord {
     }
 
     public function actualizar() {
-
         // array sincronizado con el objeto en memoria (inmueble a editar) ya sanitizado y listo para guardar en BD
         $atributos = $this->sanitizarAtributos();
 
@@ -85,7 +85,8 @@ class ActiveRecord {
         foreach($atributos as $key => $value) {
             $valores[] = "$key = '$value'";
         }
-        $query = "UPDATE propiedades SET ";
+
+        $query = "UPDATE " . static::$tabla . " SET ";
         $query .= join(', ', $valores);
         $query .= " WHERE id = '"; 
         $query .= self::$db->escape_string($this->id);
@@ -101,7 +102,7 @@ class ActiveRecord {
     }
 
     public function eliminar() {
-        $query = "DELETE FROM propiedades WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        $query = "DELETE FROM " . static::$tabla . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
         $resultado = self::$db->query($query);
         if($resultado){
             $this->deleteImage($this->imagen);
@@ -194,14 +195,15 @@ class ActiveRecord {
 
     // trae todas las propiedades de la tabla
     public static function all(){
-        $query = "SELECT * FROM propiedades";
+        $query = "SELECT * FROM " . static::$tabla;
+        //debuguear($query);
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
 
     // busca una propiedad por id
     public static function find($id){
-        $query = "SELECT * FROM propiedades WHERE id = $id";
+        $query = "SELECT * FROM " . static::$tabla . " WHERE id = $id";
         $resultado = self::consultarSQL($query);
         return array_shift($resultado);
         // array_shift() elimina el primer elemento de un array, y a su vez lo retorna (puedo guardarlo en una variable, o retornarlo como hace esta funcion)
@@ -226,7 +228,7 @@ class ActiveRecord {
     }
     protected static function crearObjeto($registro) {
         // con "new self" creo una instancia de esta misma clase (es decir, con los atributos que le especificamos en esta clase)
-        $objeto = new self;
+        $objeto = new /* self */ static;
        
         foreach($registro as $key => $value) {
             if(property_exists($objeto, $key))
