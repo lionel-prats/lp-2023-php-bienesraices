@@ -100,6 +100,16 @@ class Propiedad {
         }
     }
 
+    public function eliminar() {
+        $query = "DELETE FROM propiedades WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        $resultado = self::$db->query($query);
+        if($resultado){
+            $this->deleteImage($this->imagen);
+            header("Location: /bienesraices/admin?result=3");
+        }
+    }
+
+
     // este metodo mapea el objeto en memoria (datos de un inmueble) y retorna un array asociativo con los datos de ese inmueble
     public function atributos(){
         $atributos = [];

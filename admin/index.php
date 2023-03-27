@@ -12,22 +12,14 @@
 
         $id_property = $_POST["id_property"];
         $id_property = filter_var($id_property, FILTER_VALIDATE_INT);
-        // verificamos que haya llegado un int (evitamos inyeccion SQL, ya que se puede modificar el value del input:hidden)
+        // verificamos que haya llegado un int (evitamos inyeccion SQL, ya que se puede modificar el value del input:hidden - chequeado que funciona)
     
-        if($id_property){            
-            // eliminar la imagen asociada al registro a eliminar
-            $query = "select imagen FROM propiedades WHERE id = $id_property";
-            $resultado = mysqli_query($db, $query); 
-            $resultado = mysqli_fetch_assoc($resultado)["imagen"];
-            $carpeta_imagenes = "../imagenes/";
-            unlink( $carpeta_imagenes . $resultado ); 
-            
-            // eliminar el registro de la BD
-            $query = "DELETE FROM propiedades WHERE id = $id_property";
-            $resultado = mysqli_query($db, $query); 
-            if($resultado){
-                header("Location: /bienesraices/admin?result=3");
-            }
+        if($id_property){          
+            $propiedad = Propiedad::find($id_property);
+            $propiedad->eliminar();
+        } else {
+            echo "<h1>ERROR</h1>";
+            exit;
         }
     }
     
