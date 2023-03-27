@@ -12,5 +12,5 @@ $db = conectarDB();
 
 use App\Propiedad;
 
-// llamamos al metodo estatico setDB() de la clase propiedad, que a su vez almacenara en el atributo estatico $db (de la clase) la instancia de la conexion a la BD
+// llamamos al metodo estatico setDB() de la clase ActiveRecord, que a su vez almacenara en el atributo estatico $db (de la clase) la instancia de la conexion a la BD
 Propiedad::setDB($db);

@@ -43,15 +43,15 @@
 
         $errores = $propiedad->validar();
     
-        if(empty($errores)) {
-
+        if(empty($errores)) {            
             // si el usuario quiere cambiar la imagen, elimino la anterior del servidor
-            if(isset($oldImage))
+            if(isset($oldImage)) {
                 $propiedad->deleteImage($oldImage);
-
-            // almaceno la nueva imagen en el disco duro
-            $image = Image::make($_FILES["propiedad"]["tmp_name"]["imagen"])->fit(800, 600);$image->save(CARPETA_IMAGENES. $nombre_imagen);
-
+                // almaceno la nueva imagen en el disco duro
+                $image = Image::make($_FILES["propiedad"]["tmp_name"]["imagen"])->fit(800, 600);    
+                $image->save(CARPETA_IMAGENES. $nombre_imagen);
+            }
+            
             // UPDATE de registro en DB
             $propiedad->guardar();
         }

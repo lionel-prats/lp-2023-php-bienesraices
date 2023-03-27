@@ -5,6 +5,8 @@
     userLogued();
     
     use App\Propiedad;
+    use App\Vendedor;
+    
     $propiedades = Propiedad::all(); // arreglo de objetos (1 objeto por propiedad)
     
     // bloque para eliminar un registro de propiedades
