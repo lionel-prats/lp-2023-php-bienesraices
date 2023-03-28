@@ -1,5 +1,6 @@
 <?php
     use App\Propiedad;
+    use App\Vendedor;
     use Intervention\Image\ImageManagerStatic as Image;
     require "../../includes/app.php";
     userLogued();
@@ -12,10 +13,8 @@
         header("Location: /bienesraices/admin");
     
     $propiedad = Propiedad::find($id_propiedad);
-    //debuguear($propiedad);
 
-    $query2 = "SELECT * FROM vendedores";
-    $resultado2 = mysqli_query($db, $query2); 
+    $vendedores = Vendedor::all();
 
     // inicializamos la variable $errores como array vacio para evitar warnings en la renderizacion de la vista
     $errores = Propiedad::getErrores(); 

@@ -8,10 +8,10 @@ class ActiveRecord {
     // este atributo lo seteamos con el metodo estatico setDB()
     // este seteo lo hacemos en el archivo app.php, y asi estara disponible la instancia de mysqli en todo archivo donde importemos app.php
     protected static $db;
-    
-    protected static $columnasDB = [];
-    
-    protected static $tabla = "";
+
+    // protected static $columnasDB = []; // comente esta linea en el VIDEO 385 ya que $columnasDB existe en Propiedad y en Vendedor - por ahora funciona
+
+    // protected static $tabla = ""; // comente esta linea en el VIDEO 385 ya que $tabla existe en Propiedad y en Vendedor - por ahora funciona
 
     // formato de imagenes permitido
     protected static $types_image_allowed = ['jpg', 'jpeg','png', 'webp'];
@@ -88,9 +88,8 @@ class ActiveRecord {
 
     // este metodo mapea el objeto en memoria (datos de un inmueble) y retorna un array asociativo con los datos de ese inmueble
     public function atributos(){
-        //debuguear(static::$columnasDB);
         $atributos = [];
-        foreach(self::$columnasDB as $columna) {
+        foreach(static::$columnasDB as $columna) {
             if($columna === "id")
                 continue; 
             $atributos[$columna] = $this->$columna;
@@ -157,7 +156,8 @@ class ActiveRecord {
         // aca armamos un array de objetos. Habra un objeto asociado a cada registro de la tabla propiedades
         $array = [];
         while($registro = $resultado->fetch_assoc() ):
-            $array[] = self::crearObjeto($registro);
+            $array[] = self/* static */::crearObjeto($registro);
+            // en el VIDEO 385 dice que conviene cambiar a static - por ahora funciona asi que mantengo el self 
         endwhile;
 
         // liberar la memoria (VIDEO 370)
