@@ -5,8 +5,10 @@
     userLogued();
     
     use App\Propiedad;
+    use App\Vendedor;
 
     $propiedades = Propiedad::all(); // arreglo de objetos (1 objeto por propiedad)
+    $vendedores = Vendedor::all();
 
     // bloque para eliminar un registro de propiedades
     if($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -50,6 +52,8 @@
         <a href="/bienesraices/admin/propiedades/inyeccion2.php" class="boton boton-verde">Login Devstagram</a>
         <a href="/bienesraices/admin/propiedades/inyeccion3.php" class="boton boton-amarillo">Baja de Usuario</a>
          -->
+        <h2>Propiedades</h2>
+        
         <table class="propiedades">
             <thead>
                 <th>ID</th>
@@ -78,9 +82,41 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
+
+        <h2>Vendedores</h2>
+        <table class="propiedades">
+            <thead>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </thead>
+            <tbody>
+                <?php foreach($vendedores as $vendedor): ?>
+                    <tr>
+                        <td><?php echo $vendedor->id; ?></td>
+                        <td><?php echo $vendedor->nombre . " " . $vendedor->apellido;; ?></td>
+                        <td><?php echo $vendedor->telefono; ?></td> 
+                        <td>
+
+                            <a href="/bienesraices/admin/propiedades/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
+
+                            <form method="POST" class="w-100">
+                                <input type="hidden" name="id_property" value="<?php echo $propiedad->id; ?>">
+                                <input type="submit" class="boton-rojo-block w-100 lh-default" value="Eliminar">
+                            </form>
+                            
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
     </main>
 
 <?php
-    mysqli_close($db); // cierro la conexion a la DB
+
+    // mysqli_close($db); // cierro la conexion a la DB // en el VIDEO 386 lo elimina porque "ya no se requiere" - seguramente es porque estamos usando la forma POO de la API mysqli (/includes/config/database.php) (VERIFICAR)
+
     incluirTemplate("footer"); 
 ?>
