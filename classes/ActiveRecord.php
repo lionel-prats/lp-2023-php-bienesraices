@@ -88,6 +88,7 @@ class ActiveRecord {
 
     // este metodo mapea el objeto en memoria (datos de un inmueble) y retorna un array asociativo con los datos de ese inmueble
     public function atributos(){
+        //debuguear(static::$columnasDB);
         $atributos = [];
         foreach(self::$columnasDB as $columna) {
             if($columna === "id")
@@ -122,50 +123,15 @@ class ActiveRecord {
     }
 
     public static function getErrores() {
-        return self::$errores;
+        //return self::$errores;
+        return static::$errores; // cambia el modificador en el VIDEO 384
     }
 
     public function validar() {
-
-        if(!$this->titulo) {
-            self::$errores[] = "Debes añadir un título";
-        }
-        if(!$this->precio) {
-            self::$errores[] = "El precio es obligatorio";
-        }
-        if(strlen($this->descripcion) < 50) {
-            self::$errores[] = "La descripción es obligatoria y debe ser de al menos 50 caracteres";
-        }
-        if($this->habitaciones === "") {
-            self::$errores[] = "El numero de habitaciones es obligatorio";
-        }
-        if($this->wc === "") {
-            self::$errores[] = "El numero de baños es obligatorio";
-        }
-        if($this->estacionamiento === "") {
-            self::$errores[] = "El numero de estacionamientos es obligatorio";
-        }
-        if(!$this->vendedores_id) {
-            self::$errores[] = "Elige un vendedor";
-        }  
-        if(!$this->imagen) 
-            self::$errores[] = "La imagen es obligatoria";
-        else {
-            // strpos("monitos.jpg", ".") -> retorna la posicion del caracter pasado como 2do. argumento (en este caso 7)
-            // substr("monitos.jpg", 8) -> retorna un substring empezando por la posicion pasada como 2do argumento (en este caso "jpg");
-            foreach(self::$types_image_allowed as $type){
-                // ejemplo de archivo .pdf (no permitido) -> "b34d0f814ebed5139445c05b2ac70ce1.ation/pdf"
-                if(substr($this->imagen, strpos($this->imagen, ".") + 1) === $type) {
-                // if("ation/pdf" === "jpg")
-                    self::$type_allowed = true;
-                    break;
-                }
-            }
-            if(!self::$type_allowed) {
-                self::$errores[] = "El formato de archivo no es válido"; 
-            }
-        }   
-        return self::$errores;
+        debuguear("pilu"); // agregue esto en el VIDEO 384 - por ahora compruebo que se ejecuta el metodo validar() de Propiedad, y que este no se esta ejecutando
+        static::$errores = []; // agrega esto en el VIDEO 384 
+        return static::$errores;
+        // hasta el VIDEO 384 verifique que puedo eliminar este metodo (ya que existe en Propiedad) y todo funciona correctamente - por las dudas por ahora lo dejo
     }
 
     // trae todas las propiedades de la tabla

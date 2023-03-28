@@ -93,3 +93,14 @@ $objeto = new static;
 con "new static" voy a crear una instancia de la la clase desde donde se invoque a este metodo crearObjeto()
 
 -----
+
+VIDEO 384
+
+*** (auto)explicacion de los modificadores de acceso
+*** en ActiveRecord vvv
+
+public $errores = []; -> podria accederlo desde una instancia de la clase (un objeto)
+protected static $errores = []; -> podria accederlo desde una clase hija que herede una clase padre
+private static $errores = []; -> solo puedo accederlo desde la clase donde existe el atributo
+
+*** VERIFICAR
