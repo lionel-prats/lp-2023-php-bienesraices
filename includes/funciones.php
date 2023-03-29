@@ -29,3 +29,9 @@ function s ($html) : string {
     $s = htmlspecialchars($html);
     return $s;
 }
+
+// funcion para asegurarnos que los registros a borrar en /admin/index.php sean de las tablas propiedades o vendedores 
+function validarTipoContenido($tipo) {
+    $tipos = ["propiedad", "vendedor"];
+    return in_array($tipo, $tipos);
+}

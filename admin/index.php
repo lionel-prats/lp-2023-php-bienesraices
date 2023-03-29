@@ -13,17 +13,24 @@
     // bloque para eliminar un registro de propiedades
     if($_SERVER["REQUEST_METHOD"] === "POST") {
 
-        $id_property = $_POST["id_property"];
-        $id_property = filter_var($id_property, FILTER_VALIDATE_INT);
+        //debuguear($_POST);
+
+        $id = $_POST["id"];
+        $id = filter_var($id, FILTER_VALIDATE_INT);
         // verificamos que haya llegado un int (evitamos inyeccion SQL, ya que se puede modificar el value del input:hidden - chequeado que funciona)
-    
-        if($id_property){          
-            $propiedad = Propiedad::find($id_property);
-            $propiedad->eliminar();
-        } else {
-            echo "<h1>ERROR</h1>";
-            exit;
-        }
+
+        if($id){  
+            $tipo = $_POST["tipo"];
+            if(validarTipoContenido($tipo)) {
+                if($tipo === "propiedad") {
+                    $propiedad = Propiedad::find($id);
+                    $propiedad->eliminar();
+                } elseif($tipo === "vendedor") {
+                    $vendedor = Vendedor::find($id);
+                    $vendedor->eliminar();
+                } 
+            }   
+        } 
     }
     
     // confirmacion de exito si una propiedad se cargo correctamente (se envia desde crear.php, como parte de la query string del header("Location":...))
@@ -42,9 +49,9 @@
         <?php elseif(intval($result) === 2): ?>  
             <p class="alerta exito">Publicación Actualizada Correctamente</p> 
         <?php elseif(intval($result) === 3): ?>  
-            <p class="alerta exito">Publicación Eliminada Correctamente</p> 
+            <p class="alerta exito">Propiedad Eliminada Correctamente</p>
         <?php endif; ?>
-        
+  
         <a href="/bienesraices/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
         <!-- 
         BOTONES PARA PRUEBAS DE INYECCION SQL (APUNTAN A ARCHIVOS DENTRO DE /admin/propiedades)
@@ -74,7 +81,8 @@
                         <td>
                             <a href="/bienesraices/admin/propiedades/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
                             <form method="POST" class="w-100">
-                                <input type="hidden" name="id_property" value="<?php echo $propiedad->id; ?>">
+                                <input type="hidden" name="id" value="<?php echo $propiedad->id; ?>">
+                                <input type="hidden" name="tipo" value="propiedad">
                                 <input type="submit" class="boton-rojo-block w-100 lh-default" value="Eliminar">
                             </form>
                         </td>
@@ -99,13 +107,14 @@
                         <td><?php echo $vendedor->telefono; ?></td> 
                         <td>
 
-                            <a href="/bienesraices/admin/propiedades/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
+                            <a href="/bienesraices/admin/propiedades/actualizar.php?id=<?php echo $vendedor->id; ?>" class="boton-amarillo-block">Actualizar</a>
 
                             <form method="POST" class="w-100">
-                                <input type="hidden" name="id_property" value="<?php echo $propiedad->id; ?>">
+                                <input type="hidden" name="id" value="<?php echo $vendedor->id; ?>">
+                                <input type="hidden" name="tipo" value="vendedor">
                                 <input type="submit" class="boton-rojo-block w-100 lh-default" value="Eliminar">
                             </form>
-                            
+
                         </td>
                     </tr>
                 <?php endforeach; ?>

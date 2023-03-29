@@ -1,0 +1,74 @@
+-- INSERT MASIVO en vendedores
+INSERT INTO vendedores (nombre, apellido, telefono) VALUES 
+("Nahuel", "Silva", "1111"),
+("Damián", "Schtenbarg", "2222"),
+("Francisco", "Cámara", "3333"),
+("Lionel", "Prats", "4444"),
+("Matias", "Suan", "5555"),
+("Ulises", "Sinco", "6666"),
+("Leonardo", "Strajman", "7777")
+
+-----------------------------------------------------------------------------
+
+INSERT MASIVO en propiedades (titulo y descripcion)
+
+1. 
+120m² · 5 Ambientes en Belgrano, Capital Federal
+
+Gran living comedor con ventanal - Moderna cocina abierta con horno profesional - Comedor diario con ventanal - Dormitorio principal 3x4 - 2do Dormitorio 3,20 x 4,20 - 3er Dormitorio 3,80 x 2,50 - 2 Baños.
+
+2. 
+135m² · 6 Ambientes en Palermo, Capital Federal
+
+Excelente PH reciclado a nuevo en el corazón de Palermo Hollywood. Presenta en planta baja: Gran living comedor con parte del techo en vidrio, moderna cocina semi integrada con horno a gas profesional, 2 habitaciones grandes ideales para oficina con entrada independiente, toilette de recepción.
+
+3. 
+Único PH Reciclado! 290 m² Tot C/jardin 130 m² 5 Amb P Hollywood
+
+Ph reciclado EXCELENTE GUSTO!! con jardín de 130m2, ubicado en el centro de la manzana, alejado de los ruidos.
+En planta baja: Living comedor y escritorio (o 4to. dormitorio) con vista al jardín. Cocina, lavadero y toilette.
+Jardín, con sector de comedor, parrilla y baño con ducha.
+
+4. 
+Impresionante P. H. con Entrada Independiente en Tres Niveles con Terraza. Sin Expensas.
+
+El inmueble se encuentra ubicado en el Casco Histórico de San Telmo, en impecable estado, íntegramente reciclado con excelentes detalles.
+1º planta: Hall de entrada, ambiente de estar con entrada de luz cenital, cocina con isla, baño, amplio dormitorio, living y dormitorio.
+2º planta: Hal de recepción, tres dormitorios ( el principal en suite), baño completo, amplio vestidor.
+
+5. 
+Caballito | Av Directorio 500. PH de 3 Ambientes con Patio. Totalmente Reciclado.
+
+CABALLITO | Ph de 3 ambientes totalmente reciclado. Living comedor, cocina independiente, 2 dormitorios, baño completo y patio. Este ph se encuentra ubicado a 100 mtrs de la Av. Jose maria Moreno y a 400 de la Av. Juan Bautista Alberdi.
+
+6. 
+Hermoso PH Reciclado - Frente - Terraza - Posible Cochera
+
+Ingreso independiente o por pasillo - Living al frente - Comedor separado (Anteriormente cochera, puede volver a ser cochera sin dificultad) - Baulera - Cómoda cocina - Toilette de recepción -
+
+7. 
+Depto. Tipo Casa de 4 Ambientes en Venta en Villa Crespo
+
+HERMOSO PH 4 AMBIENTES SUPER LUMINOSO DE CATEGORIA - 100M2 CUB. Y 35 DESCUB. APROX. - PATIO Y TERRAZA - REFACCIONADO A NUEVO HACE 2 AÑOS - CALDERA Y LOSA RADIANTE - AIRE ACONDICIONADO EN TODOS LOS AMBIENTES - CUADRA CON SEGURIDAD 24 HS - EN MEDIO DE AV. CORRIENTES, AV. CORDOBA, AV. ESTADO DE ISRAEL Y AV. SCALABRINI ORTIZ - INMEJORABLE UBICACION - DIGNO DE VER - COMERCIALIZA MIGLIORISI
+
+8. 
+PH a Reestrenar en 1er Piso C/terraza de Estilo, 272 m² Tot.
+
+ESPECTACULAR E IMPONENTE PH DE ESTILO EN 1ER PISO CON TERRAZA PROPIA  A REESTRENAR EN EL CORAZÓN DE ALMAGRO !!!
+TODO RECICLADO EN ESTILO A NUEVO POR DENTRO Y FUERA, 272 M2 TOTALES (152 M2 CUB. Y POR ESCRITURA), A MEDIA CUADRA DE AV. CORRIENTES Y SUBTE ESTACIÓN ANGEL GALLARDO DE LA LÍNEA B.
+
+9. 
+Venta de PH en Almagro de Diseño con Terraza Patio y Muy Luminoso
+
+Descripción básica:
+- Increible PH de 290m2 super luminoso con 5 ambientes.
+- Se accede a la unidad a través de una entrada de mármol y venecitas.
+- El patio interno tiene un hermoso piso damero y permite la entrada de luz en todos los ambientes.
+- Living/Comedor con cocina integrada y salida al patio. Piso de microcemento.
+- Toilette de recepción.
+
+10. 
+PH Venta 3 Ambientes con Patio Villa Crespo
+
+Amplio, cómodo y cálido PH de 3 ambientes reciclado ubicado en la calle Serrano entre Aguirre y Loyola, en el barrio de Villa Crespo, a pasos del barrio de Palermo. El PH se encuentra en planta baja. Accedemos al mismo mediante un pasillo.
+

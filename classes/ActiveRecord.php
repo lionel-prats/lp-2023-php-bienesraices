@@ -78,11 +78,14 @@ class ActiveRecord {
 
     public function eliminar() {
         $query = "DELETE FROM " . static::$tabla . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        //debuguear($query);
         $resultado = self::$db->query($query);
-        if($resultado){
+
+        
+        if($resultado and static::$tabla === "propiedades"){
             $this->deleteImage($this->imagen);
-            header("Location: /bienesraices/admin?result=3");
-        }
+        } 
+        header("Location: /bienesraices/admin?result=3");
     }
 
 

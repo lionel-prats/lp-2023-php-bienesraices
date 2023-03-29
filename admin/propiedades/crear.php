@@ -76,3 +76,15 @@
     <?php 
     ?>
 <?php incluirTemplate("footer"); ?>
+
+<!-- 
+
+virtual machine de oracle
+
+linux 
+
+
+
+
+
+ -->
