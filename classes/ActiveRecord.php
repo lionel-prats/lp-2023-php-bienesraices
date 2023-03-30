@@ -35,16 +35,14 @@ class ActiveRecord {
     }
 
     public function crear() {
-        // array sincronizado con el objeto en memoria (inmueble a crear) ya sanitizado y listo para guardar en BD
+        // array sincronizado con el objeto en memoria (inmueble o vendedor a crear) ya sanitizado y listo para guardar en BD
         $atributos = $this->sanitizarAtributos();
-
         $keysAtributos = array_keys($atributos);
         $keysToString = join(', ', $keysAtributos);
         $valuesAtributos = array_values($atributos);
         $valuesToString = join("', '", $valuesAtributos);
 
         $query = "INSERT INTO " . static::$tabla . " ($keysToString) VALUES ('" . $valuesToString. "')";
-
         $resultado = self::$db->query($query);
 
         if($resultado){
@@ -53,7 +51,7 @@ class ActiveRecord {
     }
 
     public function actualizar() {
-        // array sincronizado con el objeto en memoria (inmueble a editar) ya sanitizado y listo para guardar en BD
+        // array sincronizado con el objeto en memoria (inmueble o vendedor a editar) ya sanitizado y listo para guardar en BD
         $atributos = $this->sanitizarAtributos();
 
         $valores = [];
@@ -94,7 +92,7 @@ class ActiveRecord {
         $atributos = [];
         foreach(static::$columnasDB as $columna) {
             if($columna === "id")
-                continue; 
+            continue; 
             $atributos[$columna] = $this->$columna;
         }
         return $atributos;
@@ -130,10 +128,16 @@ class ActiveRecord {
     }
 
     public function validar() {
-        debuguear("pilu"); // agregue esto en el VIDEO 384 - por ahora compruebo que se ejecuta el metodo validar() de Propiedad, y que este no se esta ejecutando
+        debuguear("pilu"); 
+        // agregue esto en el VIDEO 384 - por ahora compruebo que se ejecuta el metodo validar() de Propiedad y de Vendedor, y que este no se esta ejecutando
+        // hata el VIDEO 388 lo sigo compronando
+        
         static::$errores = []; // agrega esto en el VIDEO 384 
+        
         return static::$errores;
-        // hasta el VIDEO 384 verifique que puedo eliminar este metodo (ya que existe en Propiedad) y todo funciona correctamente - por las dudas por ahora lo dejo
+        
+        // hasta el VIDEO 384 verifique que puedo eliminar este metodo (ya que existe en Propiedad y en Vendedor) y todo funciona correctamente - por las dudas por ahora lo dejo
+        // hata el VIDEO 388 lo sigo compronando
     }
 
     // trae todas las propiedades de la tabla

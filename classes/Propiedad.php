@@ -70,8 +70,4 @@ class Propiedad extends ActiveRecord {
         }   
         return self::$errores;
     }
-    /* public static function getErrores() {
-        debuguear("gatcha");
-        return static::$errores; // cambia el modificador en el VIDEO 384
-    } */
 }

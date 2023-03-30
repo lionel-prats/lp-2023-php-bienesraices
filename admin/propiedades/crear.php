@@ -68,23 +68,9 @@
 
             <?php include('../../includes/templates/formulario_propiedades.php'); ?>
             
-            <?php //include('C:\xampp\htdocs\bienesraices\includes/templates/formulario_propiedades.php'); ?>
-            
             <input type="submit" value="Crear Propiedad" class="boton boton-verde">
         </form>
     </main>
     <?php 
     ?>
 <?php incluirTemplate("footer"); ?>
-
-<!-- 
-
-virtual machine de oracle
-
-linux 
-
-
-
-
-
- -->

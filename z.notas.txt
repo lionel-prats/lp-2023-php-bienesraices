@@ -26,6 +26,8 @@ property_exists($objeto, $key)
 
 VIDEO 372
 
+funciones.php -> s();
+
 funcion PHP htmlspecialchars();
 
 ejemplo para entender:
@@ -113,6 +115,8 @@ in_array($valor_a_buscar, $array) : bool;
 
 funcion que busca un valor en un array, retornando un booleano
 
+-----
+
 *** En este videos surge un problema: me tira error si quiero eliminar un vendedor con alguna propiedad asociada (propiedades.vendedores_id = vendedor.id).
 *** Entre las consultas de la clase se encuentra esta respuesta a ese problema vvv 
 
@@ -123,3 +127,22 @@ Lo que tienes que hacer es modificar tus foreign keys, desde Tableplus, das clic
 Seleccionas el fk de vendedores dando clic en la flecha que aparece hacia la derecha ->
 Seleccionas nuevamente vendedores y modificas la opción SET NULL tanto de On Update como On Delete, esto te permitirá borrar un vendedor, conservando los registros de las propiedades, automáticamente el campo vendedor pasara a null en las propiedades donde existía el vendedor que hayas borrado.
 
+-----
+
+*** en /admin/index.php, al momento de eliminar una propiedad o un vendedor, el "alert" de exito en todos los casos dice "Propiedad Eliminada Correctamente"
+*** esto es porque desde el metodo eliminar() en ActiveRecord redirigimos al mismo archivo luego del DELETE pasandole como queryString "/?result=3" en la URL y en el HTML del archivo está seteado para mostrar la leyenda mencionada en caso de result=3
+*** "lo solucionaremos mas adelante"
+
+-----
+
+VIDEO 388
+
+*** AFIANZANDO LO APRENDIDO 
+* creo el archivo /admin/vendedores/crear.php 
+* hago un use de Vendedor -> use App\Vendedor;
+* instancio Vendedor -> $vendedor = new Vendedor();
+* Esto solo funciona si dispongo del archivo /vendor/autoload.php en este archivo
+* Para disponer de dicho archivo alcanza con hacer un require de /includes/app.php, ya que este archivo incluye un require del archivo /vendor/autoload.php
+
+*** intval("155a1556") retorna el valor integer de una variable
+* en este ejemplo, retorna int(155)

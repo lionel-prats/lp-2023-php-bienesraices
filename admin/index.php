@@ -53,6 +53,7 @@
         <?php endif; ?>
   
         <a href="/bienesraices/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
+        <a href="/bienesraices/admin/vendedores/crear.php" class="boton boton-amarillo">Nuevo Vendedor</a>
         <!-- 
         BOTONES PARA PRUEBAS DE INYECCION SQL (APUNTAN A ARCHIVOS DENTRO DE /admin/propiedades)
         <a href="/bienesraices/admin/propiedades/inyeccion.php" class="boton boton-amarillo">Buscar Vendedor</a>
@@ -107,7 +108,7 @@
                         <td><?php echo $vendedor->telefono; ?></td> 
                         <td>
 
-                            <a href="/bienesraices/admin/propiedades/actualizar.php?id=<?php echo $vendedor->id; ?>" class="boton-amarillo-block">Actualizar</a>
+                            <a href="/bienesraices/admin/vendedores/actualizar.php?id=<?php echo $vendedor->id; ?>" class="boton-amarillo-block">Actualizar</a>
 
                             <form method="POST" class="w-100">
                                 <input type="hidden" name="id" value="<?php echo $vendedor->id; ?>">
