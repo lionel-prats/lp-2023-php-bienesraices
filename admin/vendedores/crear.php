@@ -11,6 +11,7 @@
             $vendedor->guardar();
         }
     }
+
     incluirTemplate("header");
 ?>
 <main class="contenedor seccion">

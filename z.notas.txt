@@ -146,3 +146,105 @@ VIDEO 388
 
 *** intval("155a1556") retorna el valor integer de una variable
 * en este ejemplo, retorna int(155)
+
+*** is_numeric("155a1556") retorna true si el valor es numerico, false si no lo es
+* en este ejemplo, retorna bool(false)
+
+*** strlen(1551556) retorna un integer con la cantidad de caracteres o dígitos del valor pasado como parametro
+* en este ejemplo, retorna int(7)
+
+-----
+
+VIDEO 389
+
+"la mejor forma de validar que el usuario este ingresando solo numeros desde un form es usando expresiones regulares"
+
+* estamos en el formulario de registro de un vendedor
+* vamos a usar expresiones regulares para validar que el nro de telefono ingresado por el usuario sea un numero valido (sin caracteres alfanumericos)
+* en PHP, para trabajar con expresiones regulares usamos la funcion nativa preg_match()
+* esta validacion la haremos en el metodo validar() de Vendedor
+
+EXPRESION REGULAR 
+
+una expresion regular es una forma de buscar un patron dentro de un texto
+
+-----
+
+preg_match('/[0-9]{10}/', $this->telefono)
+* con [0-9] seteo que solo se acepten como validos los caracteres 0,1,2,3,4,5,6,7,8 & 9 
+* con {10} seteo que espero 10 caracteres
+*** en mi caso esto no funciono exactamente como deberia, asi que me puse con el tutorial de coders free sobre expresiones regulares vvv
+
+https://www.youtube.com/watch?v=xGaXH7spCyA&t=750s
+
+-----
+
+VIDEO 390
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
