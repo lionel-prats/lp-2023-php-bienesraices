@@ -120,6 +120,9 @@ funcion que busca un valor en un array, retornando un booleano
 *** En este videos surge un problema: me tira error si quiero eliminar un vendedor con alguna propiedad asociada (propiedades.vendedores_id = vendedor.id).
 *** Entre las consultas de la clase se encuentra esta respuesta a ese problema vvv 
 
+PREGUNTA -> hola no puedo elimiar vendedores no entiendo la razon
+
+RESPUESTA
 Hola Ángel.
 En MySQL existe algo llamado integridad referencial significa que cuando un registro en una tabla haga referencia a un registro en otra tabla, el registro correspondiente debe existir. Por lo que no puedes eliminar un registro si otro registro depende del que estas intentando eliminar.
 Esto lo veremos mas adelante en el curso.
@@ -188,9 +191,20 @@ filter_var($variable, FILTER_VALIDATE_INT)
 * hasta aca la usamos para validar que los id de inmueble o vendedor que vienen por GET sean valores numericos (o sea, para sanitizar el dato (?)) 
 * esto lo hacemos en los archivos actualizar.php correspondiente a cada tabla
 
+-----
 
+VIDEO 392
 
+* convertimos el archivo /includes/templates/anuncios.php a la forma orientada a objetos
+* borramos el cierre de la conexion a la BD, que teniamos de la forma anterior (funcional (?)) vvv
 
+<?php 
+    mysqli_close($db);
+?>
+
+* el profesor explica que el metodo free() definido en el metodo consultarSQL() de la clase ActiveRecord ($resultado->free()) es la forma orientada a objetos de liberar la memoria
+
+* tambien convertimos anuncio.php a la forma orientada a objetos
 
 
 

@@ -47,9 +47,7 @@
             $mensaje = mostrarNotificacion(intval($result));
             if(!is_null($mensaje)) { ?>
                 <p class="alerta exito"><?php echo s($mensaje); ?></p>
-        <?php 
-            } 
-        ?>
+        <?php } ?>
   
         <a href="/bienesraices/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
         <a href="/bienesraices/admin/vendedores/crear.php" class="boton boton-amarillo">Nuevo Vendedor</a>

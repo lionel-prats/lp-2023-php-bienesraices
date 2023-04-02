@@ -40,13 +40,13 @@ function mostrarNotificacion($codigo) {
     $mensaje = "";
     switch($codigo) {
         case 1: 
-            $mensaje = "Creado Correctamente";
+            $mensaje = "Registro creado Correctamente";
             break;
         case 2: 
-            $mensaje = "Actualizado Correctamente";
+            $mensaje = "Registro actualizado Correctamente";
             break;
         case 3: 
-            $mensaje = "Eliminado Correctamente";
+            $mensaje = "Registro eliminado Correctamente";
             break;
         default:
             $mensaje = NULL;
