@@ -42,15 +42,14 @@
 
     <main class="contenedor seccion">
         <h1>Administrador de Bienes Raices</h1>
-
-        <!-- mensaje de exito al crear una nueva propiedad correctamente -->
-        <?php if(intval($result) === 1): // intval() devuelve el valor integer de una variable ?>  
-            <p class="alerta exito">Publicación Creada Correctamente</p> 
-        <?php elseif(intval($result) === 2): ?>  
-            <p class="alerta exito">Publicación Actualizada Correctamente</p> 
-        <?php elseif(intval($result) === 3): ?>  
-            <p class="alerta exito">Propiedad Eliminada Correctamente</p>
-        <?php endif; ?>
+            
+        <?php
+            $mensaje = mostrarNotificacion(intval($result));
+            if(!is_null($mensaje)) { ?>
+                <p class="alerta exito"><?php echo s($mensaje); ?></p>
+        <?php 
+            } 
+        ?>
   
         <a href="/bienesraices/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
         <a href="/bienesraices/admin/vendedores/crear.php" class="boton boton-amarillo">Nuevo Vendedor</a>
