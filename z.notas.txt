@@ -206,21 +206,21 @@ VIDEO 392
 
 * tambien convertimos anuncio.php a la forma orientada a objetos
 
+-----
 
+VIDEO 393 
 
+usamos el arreglo global $_SERVER
 
+$_SERVER["REQUEST_URI"] => string(26) "/bienesraices/index.php"
 
+$_SERVER["SCRIPT_NAME"] => string(26) "/bienesraices/anuncios.php"
 
+* de esta forma podemos saber que archivo.php del proyecto se esta mandando a llamar o ejecutando
 
+* de esta manera, en /includes/templates/anuncios.php mandamos a llamar al metodo estatico all() de ActiveRecord para traer todas las propiedades (cuando se ejecute anuncios.php) o al metodo estatico get() de ActiveRecord para traer una cantidad determinada de propiedades, cuando se ejecute el index.php del proyecto
 
-
-
-
-
-
-
-
-
+-----
 
 
 

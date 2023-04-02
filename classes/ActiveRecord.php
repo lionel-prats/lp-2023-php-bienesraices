@@ -146,6 +146,13 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return $resultado;
     }
+    
+    public static function get($cantidad){
+        $query = "SELECT * FROM " . static::$tabla . " LIMIT " . $cantidad;
+        //debuguear($query);
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
 
     // busca una propiedad por id
     public static function find($id){
