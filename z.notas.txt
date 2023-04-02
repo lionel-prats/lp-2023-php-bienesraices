@@ -159,6 +159,8 @@ VIDEO 389
 
 "la mejor forma de validar que el usuario este ingresando solo numeros desde un form es usando expresiones regulares"
 
+preg_match($expresion_regular, $string) -> funcion nativa de PHP para usar expresiones regulares buscando patrones en strings
+
 * estamos en el formulario de registro de un vendedor
 * vamos a usar expresiones regulares para validar que el nro de telefono ingresado por el usuario sea un numero valido (sin caracteres alfanumericos)
 * en PHP, para trabajar con expresiones regulares usamos la funcion nativa preg_match()
@@ -166,7 +168,7 @@ VIDEO 389
 
 EXPRESION REGULAR 
 
-una expresion regular es una forma de buscar un patron dentro de un texto
+"una expresion regular es una forma de buscar un patron dentro de un texto"
 
 -----
 
@@ -174,16 +176,17 @@ preg_match('/[0-9]{10}/', $this->telefono)
 * con [0-9] seteo que solo se acepten como validos los caracteres 0,1,2,3,4,5,6,7,8 & 9 
 * con {10} seteo que espero 10 caracteres
 *** en mi caso esto no funciono exactamente como deberia, asi que me puse con el tutorial de coders free sobre expresiones regulares vvv
-
 https://www.youtube.com/watch?v=xGaXH7spCyA&t=750s
 
 -----
 
 VIDEO 390
 
-
-
-
+filter_var($variable, FILTER_VALIDATE_INT)
+* la funcion filter_var() permite hacer validaciones de los tipos de datos que contiene una variable.
+* en este caso, con la constante FILTER_VALIDATE_INT validamos si la variable es u integer
+* hasta aca la usamos para validar que los id de inmueble o vendedor que vienen por GET sean valores numericos (o sea, para sanitizar el dato (?)) 
+* esto lo hacemos en los archivos actualizar.php correspondiente a cada tabla
 
 
 

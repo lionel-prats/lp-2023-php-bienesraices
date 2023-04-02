@@ -2,10 +2,15 @@
     require "../../includes/app.php";
     use App\Vendedor;
     userLogued();
-    $vendedor = new Vendedor;
+    $id_vendedor = $_GET["id"];
+    $id_vendedor =  filter_var($id_vendedor, FILTER_VALIDATE_INT); 
+    if(!$id_vendedor)
+        header("Location: /bienesraices/admin");
+    $vendedor = Vendedor::find($id_vendedor);
     $errores = Vendedor::getErrores(); 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-        $vendedor = new Vendedor($_POST["vendedor"]);
+        $args = $_POST["vendedor"];
+        $vendedor->sincronizar($args);
         $errores = $vendedor->validar();
         if(empty($errores)) {
             $vendedor->guardar();

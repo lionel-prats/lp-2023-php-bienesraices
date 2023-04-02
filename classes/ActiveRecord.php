@@ -153,6 +153,7 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return array_shift($resultado);
         // array_shift() elimina el primer elemento de un array, y a su vez lo retorna (puedo guardarlo en una variable, o retornarlo como hace esta funcion)
+        // est metodo retorna un objeto con los datos de un registro
     }
 
     public static function consultarSQL($query) {
@@ -184,8 +185,8 @@ class ActiveRecord {
         return $objeto;
     }
 
-    // sincroniza el objeto en memoria con los cambios realizados por el usuario (actualizar propiedad)
-    // metodo utilizado en actualizar.php: va a reescribir el objeto en memoria (inmmueble a actualizar, return de ::find()), con los datos que vengan del formulario de edicion de un inmueble
+    // sincroniza el objeto en memoria con los cambios realizados por el usuario (actualizacion de inmueble o vendedor)
+    // metodo utilizado en actualizar.php: va a reescribir el objeto en memoria (inmmueble o vendedor a actualizar, return de ::find()), con los datos que vengan del formulario de edicion de un inmueble
     public function sincronizar( $args = [] ) {
         // con $this referenciamos (hacemos referencia, invocamos) a la instancia creada en actualizar.php (inmueble a editar)
         foreach($args as $key => $value) {
@@ -193,6 +194,6 @@ class ActiveRecord {
                 $this->$key = $value;
         }
         //debuguear($this);
-        return;
+        return "mocos";
     }
 }
